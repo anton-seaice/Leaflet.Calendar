@@ -12,5 +12,13 @@ export default defineConfig({
   },
   preview: {
     port: 3008,
+  },
+  build: {
+    lib: {
+      entry:'src/L.Control.Datepicker.js',
+      name: 'leaflet-calendar'
+      // formats: ['es']
+    }
   }
+
 })
