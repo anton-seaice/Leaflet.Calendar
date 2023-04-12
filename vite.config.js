@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   define: {
     '__VERSION__': JSON.stringify(process.env.npm_package_version),
+    'process.env': {}
   },
   server: {
     port: 3000,
@@ -15,9 +16,9 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry:'src/L.Control.Datepicker.js',
-      name: 'leaflet-calendar'
-      // formats: ['es']
+      entry:'src/leaflet-calendar.js',
+      name: 'leafletCalendar',
+      formats: ['umd']
     }
   }
 

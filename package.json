@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Adds a calendar to a leaflet map",
   "type": "module",
-  "main": "src/L.Control.Datepicker.js",
+  "main": "src/leaflet-calendar.js",
   "scripts": {
     "test": "eslint ./src ./cypress && cypress run --component --browser chrome && cypress run --component --browser firefox",
     "build": "vite build"
@@ -13,11 +13,11 @@
     "url": "git+https://github.com/anton-seaice/Leaflet.Calendar.git"
   },
   "author": "Anton Steketee",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anton-seaice/leaflet-calendar/issues"
+    "url": "https://github.com/anton-seaice/leaflet.calendar/issues"
   },
-  "homepage": "https://github.com/anton-seaice/leaflet-calendar#readme",
+  "homepage": "https://github.com/anton-seaice/leaflet.calendar#readme",
   "dependencies": {
     "@vuepic/vue-datepicker": "^4.3.0",
     "vue": "^3.2.47"
