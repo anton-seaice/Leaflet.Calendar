@@ -7,7 +7,7 @@ Extend the vue datepicker by:
 	properties:
 		startDate: date to initialise the datepicker on ,
 		minDate: first date allowed to be chosen ,
-		maxDateOffset: last date allowed to be chosen, as an offset from today ,
+		maxDate: last date allowed to be chosen ,
 		freq: which calender to show, 'daily'|'monthly'|'yearly'|'none' (reactive)
 
 	events:
@@ -39,11 +39,10 @@ Extend the vue datepicker by:
 				return new Date(d)!='Invalid Date' ;
 			}
 		},
-		maxDateOffset: { //number of days to offset from today
-			type: Number , 
-			default: 0 ,
-			validator(value) {
-				return value>=0 ;
+		maxDate: { 
+			default: null , //default is yesterday, set below
+			validator(d) {
+				return new Date(d)!='Invalid Date' ;
 			}
 		}, 
 		freq: {
@@ -56,7 +55,7 @@ Extend the vue datepicker by:
 	} ) ;
 
 	//POSSIBLE TO-DO:
-	// Check that minDate<=startDate and today+maxDateOffset>=startDate
+	// Check that minDate<=startDate and maxDateOffset>=startDate
 
 	const dayInput = ref(null) ;
 	const monthInput = ref(null) ;
@@ -66,8 +65,14 @@ Extend the vue datepicker by:
 	let today = new Date() ;
 	let minDate = new Date(options.minDate) ;
 
-	let maxDate = new Date() ;
-	maxDate.setTime(today.getTime()+options.maxDateOffset*60*60*24*1000) ;
+	let maxDate ;
+	if (options.maxDate) {
+		maxDate = new Date(options.maxDate) ;
+	} else {
+		// default max date to yesterday
+		maxDate = new Date() ;
+		maxDate.setTime(today.getTime()-1*60*60*24*1000) ;
+	}
 
 	const pickerAttrs = {
 		autoApply:true,
@@ -271,6 +276,11 @@ Extend the vue datepicker by:
 		padding: 5px ;
 		grid-row: 1 ;
 		width: 246px ;
-		height: 38px
+		height: 38px ;
+		z-index:810 ;
+		border: 2px solid rgba(0,0,0,0.2);
+		background-clip: padding-box;
+		border-radius: 5px;
+		background: #fff;
 	}
 </style>

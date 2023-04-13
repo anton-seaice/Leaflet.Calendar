@@ -109,13 +109,14 @@ L.TileLayer.WMS.Time = L.TileLayer.WMS.extend({
 	options: {
 		//@option freq: String = 'daily'
 		//Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
+		freq:'daily' ,
 		//@option dateStr: Function(date) = returns YYYY-MM-DDTHH:mm:ss.sssZ
 		//default date format is Zulu time, as this is more common for WMS servers than our default 
 		dateStr: (date) => {
 			return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-${String(date.getDate()).padStart(2,0)}T12:00:00.000Z`;
 		}
 	} ,
-	
+
 	onAdd: function(map) {
 		
 		const d = new Date(map.date);

@@ -45,6 +45,15 @@ L.Control.Datepicker=L.Control.extend({
 		//@option position: String = 'topright'|'topleft'|'bottomleft'|'bottomright'
 		//which corner to show the datepicker on the map
 		position: 'topright',
+		//@option frequency: String = 'daily'|'monthly'|'yearly'|'none'
+		//which frequency to start the datepicker on. This is changed later by the freq option for each layer added.
+		frequency: 'monthly',
+		//@option minDate: [String|Date object] = valid date string or date object
+		//the first date you can pick in the datepicker, default 1980
+		minDate: '1980' ,
+		//@option maxDate: [String|Date object] = valid date string or date object
+		//the last date you can pick in the datepicker, defaults to yesterday
+		maxDate: null
 	} ,
 
 	onAdd(map) {
@@ -59,20 +68,27 @@ L.Control.Datepicker=L.Control.extend({
 		} 
 		
 		this._container = L.DomUtil.create('div', 'date-control leaflet-control') ;
-		map._dateFreq = ref('monthly') ;
+		map._dateFreq = ref(this.options.frequency) ;
 
-		//mount the vue app in it
-		this._app=createApp(Datepicker, {
-			startDate: map.date ,
-			freq: map._dateFreq , 
-			onDateChange:dateChange 
-		}).mount(this._container);
+		if (!Date.prototype.isPrototypeOf(map.date)) {
+			console.error("You need to define map.date as a Date object before creating the datepicker") ;
+		} else {
 
-		// set up an event listener for when an layer is added
-		map.on('layeradd', this._layerChange, map) ;
-		map.on('layerremove', this._layerChange, map) ;
-		
-		return this._container ;
+			//mount the vue app in it
+			this._app=createApp(Datepicker, {
+				startDate: map.date ,
+				freq: map._dateFreq , 
+				onDateChange:dateChange ,
+				minDate: this.options.minDate ,
+				maxDate: this.options.maxDate
+			}).mount(this._container);
+
+			// set up an event listener for when an layer is added
+			map.on('layeradd', this._layerChange, map) ;
+			map.on('layerremove', this._layerChange, map) ;
+			
+		}
+			return this._container ;
 	},
 	
 	onRemove(map) {
