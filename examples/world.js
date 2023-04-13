@@ -4,7 +4,7 @@ var map = L.map('map', {
     zoom: 2,
 });
 
-map.date=new Date('01/01/2021') ;
+map.date=new Date('03/21/2021') ;
 // add the calendar
 L.control.datepicker({minDate:'2018-01-01', maxDate:'2021-12-31'}).addTo(map) ;
 

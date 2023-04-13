@@ -70,7 +70,7 @@ L.Control.Datepicker=L.Control.extend({
 		this._container = L.DomUtil.create('div', 'date-control leaflet-control') ;
 		map._dateFreq = ref(this.options.frequency) ;
 
-		if (!Date.prototype.isPrototypeOf(map.date)) {
+		if (!Date.prototype.isPrototypeOf.call(Date.prototype,map.date)) {
 			console.error("You need to define map.date as a Date object before creating the datepicker") ;
 		} else {
 
