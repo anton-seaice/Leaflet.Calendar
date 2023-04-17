@@ -1,40 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<meta charset="utf-8">
-	<style>
-	table {
-		border-collapse: collapse;
-	}
-	table td, table th {
-		border: 1px solid #888;
-	}
-	pre code {
-		display: inline-block;
-		background: #eee;
-	}
-	td:last-child code {
-		background: #eee;
-	}
-	body {
-		font-family: Sans;
-		max-width: 50em;
-		margin: auto;
-	}
-	</style>
-</head>
-<body>
-	<h2>Leafdoc generated API reference</h2>
+# Leafdoc-generated API reference
 
-	<h2 id='l'>L</h2>
+## L
+
 <p>A calendar plugin for leaflet maps, using the Vue Datepicker</p>
-<p>https://anton-seaice.github.io/Leaflet.Calendar/examples/antarctic.html
-https://anton-seaice.github.io/Leaflet.Calendar/examples/world.html</p>
+<p>https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html
+https://anton-seaice.github.io/Leaflet.Datepicker/examples/world.html</p>
 <p>#To-do</p>
 <p>an example with Geojson points - i.e. if you have a calendar, could you show what events are on in your city on that day?</p>
 
-<h2 id='l-control-datepicker'>L.Control.Datepicker</h2>
+
+
+## L.Control.Datepicker
+
 <p>Inherits L.Control</p>
 <p>This creates a leaflet 'control' with a datepicker inside it. The datepicker is an app made usign the Vue framework, and can be daily, monthly or annual.</p>
 <p>The frequency of the datepicker is set by the 'freq' option for each layer added to the map. The highest frequency 'freq' option set for layer added to the map is used as the date picker. e.g:</p>
@@ -47,9 +24,12 @@ https://anton-seaice.github.io/Leaflet.Calendar/examples/world.html</p>
 <p>The date is stored as a date object in map.date</p>
 <p>The datepicker is used with the TimeLocal extensions to Leaflet layers</p>
 
-<h3 id='l-control-datepicker-example'>Usage example</h3>
 
-<section>
+### Usage example
+
+
+
+
 
 
 
@@ -73,12 +53,15 @@ L.tileLayer.time(
 </code></pre>
 
 
-</section>
 
 
-<h3 id='l-control-datepicker-option'>Options</h3>
 
-<section>
+
+### Options
+
+
+
+
 
 
 <table><thead>
@@ -114,21 +97,30 @@ L.tileLayer.time(
 		<td>the last date you can pick in the datepicker, defaults to yesterday</td>
 	</tr>
 </tbody></table>
-</section>
 
 
-<h2 id='time-local'>Time Local</h2>
+
+
+
+## Time Local
+
 <p>These are the supported layers types.</p>
 <p>Once you have created map.date and added the datepicker control, you can add these layers.</p>
 
-<h2 id='geojson-timelocal'>GeoJSON.TimeLocal</h2>
+
+
+## GeoJSON.TimeLocal
+
 <p>aka L.GeoJSON.TimeLocal
 inherits L.GeoJSON.Local</p>
 <p>Load a single GeoJSON file from local storage, with one file per timestep.</p>
 
-<h3 id='geojson-timelocal-example'>Usage example</h3>
 
-<section>
+### Usage example
+
+
+
+
 
 
 
@@ -145,12 +137,15 @@ inherits L.GeoJSON.Local</p>
 <p>time,fileBasePath and fileExtension are used by 'mixin' TimeLocal</p>
 
 
-</section>
 
 
-<h3 id='geojson-timelocal-option'>Options</h3>
 
-<section>
+
+### Options
+
+
+
+
 
 
 <table><thead>
@@ -174,10 +169,13 @@ inherits L.GeoJSON.Local</p>
 		<td>you might need to tweak it to suit the format required by the server</td>
 	</tr>
 </tbody></table>
-</section>
 
 
-<h2 id='imageoverlay-timelocal'>ImageOverlay.TimeLocal</h2>
+
+
+
+## ImageOverlay.TimeLocal
+
 <p>Inherits ImageOverlay</p>
 <p>Used to load a single image from local storage based on the specified time</p>
 <pre><code class="language-js">const time = new Date() ;
@@ -197,9 +195,12 @@ L.imageOverlay.timeLocal(
 <p>time,fileBasePath and fileExtension are used by 'mixin' TimeLocal</p>
 <p>Bounds is unchanged from L.ImageOverlay</p>
 
-<h3 id='imageoverlay-timelocal-option'>Options</h3>
 
-<section>
+### Options
+
+
+
+
 
 
 <table><thead>
@@ -223,17 +224,23 @@ L.imageOverlay.timeLocal(
 		<td>you might need to tweak it to suit the format required</td>
 	</tr>
 </tbody></table>
-</section>
 
 
-<h2 id='tilelayer-time'>TileLayer.Time</h2>
+
+
+
+## TileLayer.Time
+
 <p>Inherits L.TileLayer</p>
 <p>Used to load a single image from web (TMS server) based on the specified time. Url must include <code>{time}</code>.</p>
 <p>Other options are inherited from L.TileLayer</p>
 
-<h3 id='tilelayer-time-example'>Usage example</h3>
 
-<section>
+### Usage example
+
+
+
+
 
 
 
@@ -252,12 +259,15 @@ L.imageOverlay.timeLocal(
 </code></pre>
 
 
-</section>
 
 
-<h3 id='tilelayer-time-option'>Options</h3>
 
-<section>
+
+### Options
+
+
+
+
 
 
 <table><thead>
@@ -281,16 +291,22 @@ L.imageOverlay.timeLocal(
 		<td>you might need to tweak it to suit the format required by the server</td>
 	</tr>
 </tbody></table>
-</section>
 
 
-<h2 id='tilelayer-wms-time'>TileLayer.WMS.Time</h2>
+
+
+
+## TileLayer.WMS.Time
+
 <p>Inherits L.TileLayer</p>
 <p>Used to load a WMS from web based on the specified time. Url must include <code>{time}</code></p>
 
-<h3 id='tilelayer-wms-time-example'>Usage example</h3>
 
-<section>
+### Usage example
+
+
+
+
 
 
 
@@ -309,12 +325,15 @@ L.imageOverlay.timeLocal(
 </code></pre>
 
 
-</section>
 
 
-<h3 id='tilelayer-wms-time-option'>Options</h3>
 
-<section>
+
+### Options
+
+
+
+
 
 
 <table><thead>
@@ -338,9 +357,9 @@ L.imageOverlay.timeLocal(
 		<td>default date format is Zulu time, as this is more common for WMS servers than our default</td>
 	</tr>
 </tbody></table>
-</section>
 
 
 
 
-</body></html>
+
+
