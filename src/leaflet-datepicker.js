@@ -2,8 +2,10 @@
 🍂namespace L
 A calendar plugin for leaflet maps, using the Vue Datepicker
 
-https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html
-https://anton-seaice.github.io/Leaflet.Datepicker/examples/world.html
+[![Antarctic Example](./examples/antarcticScreenshot.jpg)](https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html)
+
+<a href=https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html alt='Antarctic Example' target=_blank><img src=./examples/antarcticScreenshot.PNG width=40%></a>
+<a href=https://anton-seaice.github.io/Leaflet.Datepicker/examples/simple.html alt='Simple Example' target=_blank><img src=./examples/antarcticScreenshot.PNG width=40%></a>
 
 #To-do
 

@@ -3,8 +3,9 @@
 ## L
 
 <p>A calendar plugin for leaflet maps, using the Vue Datepicker</p>
-<p>https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html
-https://anton-seaice.github.io/Leaflet.Datepicker/examples/world.html</p>
+<p><a href="https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html"><img src="./examples/antarcticScreenshot.jpg" alt="Antarctic Example"></a></p>
+<p>&lt;a href=https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html alt='Antarctic Example' target=_blank&gt;&lt;img src=./examples/antarcticScreenshot.PNG width=40%&gt;&lt;/a&gt;
+&lt;a href=https://anton-seaice.github.io/Leaflet.Datepicker/examples/simple.html alt='Simple Example' target=_blank&gt;&lt;img src=./examples/antarcticScreenshot.PNG width=40%&gt;&lt;/a&gt;</p>
 <p>#To-do</p>
 <p>an example with Geojson points - i.e. if you have a calendar, could you show what events are on in your city on that day?</p>
 
