@@ -178,10 +178,19 @@ inherits L.GeoJSON.Local</p>
 
 <p>Inherits ImageOverlay</p>
 <p>Used to load a single image from local storage based on the specified time</p>
-<pre><code class="language-js">const time = new Date() ;
 
+
+### Usage example
+
+
+
+
+
+
+
+<pre><code class="language-js">
 L.imageOverlay.timeLocal(
-	date,
+	map.date,
 	&quot;tracker_data/chlor_conc_anoms/occci_chlor_conc_anoms_&quot;, 
 	&quot;.png&quot;, 
 	minus40Bounds,
@@ -194,6 +203,10 @@ L.imageOverlay.timeLocal(
 </code></pre>
 <p>time,fileBasePath and fileExtension are used by 'mixin' TimeLocal</p>
 <p>Bounds is unchanged from L.ImageOverlay</p>
+
+
+
+
 
 
 ### Options

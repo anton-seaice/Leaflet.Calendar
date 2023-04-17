@@ -43,6 +43,7 @@ layers.addOverlay(
         "https://my.cmems-du.eu/thredds/wms/METOFFICE-GLO-SST-L4-REP-OBS-SST",
         {
             layers: "analysed_sst", 
+            styles: "boxfill/occam" ,
             format: "image/png",
             transparent: "true",
             freq: "monthly",

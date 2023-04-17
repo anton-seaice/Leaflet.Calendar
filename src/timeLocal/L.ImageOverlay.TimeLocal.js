@@ -7,12 +7,11 @@ Inherits ImageOverlay
 
 Used to load a single image from local storage based on the specified time
 
-🍂example:
+🍂example
 ```js
-const time = new Date() ;
 
 L.imageOverlay.timeLocal(
-	date,
+	map.date,
 	"tracker_data/chlor_conc_anoms/occci_chlor_conc_anoms_", 
 	".png", 
 	minus40Bounds,

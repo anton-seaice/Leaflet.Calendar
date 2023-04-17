@@ -6,7 +6,7 @@
   "main": "src/leaflet-datepicker.js",
   "scripts": {
     "test": "eslint ./src ./cypress && cypress run --component --browser chrome && cypress run --component --browser firefox",
-    "prebuild": "leafdoc -t node_modules/leafdoc/templates/basic -o README.md src",
+    "prebuild": "leafdoc -t node_modules/leafdoc/templates/markdown -o README.md src",
     "build": "vite build"
   },
   "repository": {
