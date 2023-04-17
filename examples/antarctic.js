@@ -58,6 +58,9 @@ layers.addOverlay(
     "Sea Surface Temperature - Monthly"
 )
 
+L.imageOverlay(
+    "https://data.seaice.uni-bremen.de/amsr2/asi_daygrid_swath/s6250/2022/aug/Antarctic/asi-AMSR2-s6250-20220827-v5.4_visual.png"
+).addTo(map)
 
 //coastlines - for reference
 L.tileLayer.wms('http://geos.polarview.aq/geoserver/wms', {

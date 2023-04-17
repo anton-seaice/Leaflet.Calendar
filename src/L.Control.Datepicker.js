@@ -6,15 +6,15 @@ import Datepicker from './Datepicker.vue' ;
 🍂class L.Control.Datepicker
 Inherits L.Control
 
-This creates a leaflet 'control' with a datepicker inside it. The datepicker is an app made usign the Vue framework, and can be daily, monthly or annual.
+This creates a leaflet 'control' with a datepicker inside it. The datepicker can be daily, monthly or annual. This changes the value of map.date, when the calendar is changes, and also emits the date used a "dayChanged", "monthChanged" and or "yearChanged" event
 
-The frequency of the datepicker is set by the 'freq' option for each layer added to the map. The highest frequency 'freq' option set for layer added to the map is used as the date picker. e.g:
+The frequency of the datepicker is set by the 'freq' option for each layer added to the map. The highest frequency 'freq' option set for layers added to the map is used as the date picker. e.g:
 - If no layers have the 'freq' option, then the datepicker does not show (but there is an empty space in allocated for it)
 - If one layer has the freq option set as 'yearly', then a calendar with years only is shown
 - If one layer has the 'monthly' option, and one has the 'yearly' option, then the monthly calendar is shown
 - If one layer has the 'daily' option set, and two layers have 'monthly', and three have 'yearly', the daily calendar is shown.
 
-The date is stored as a date object in map.date
+The date is stored as a date object in map.date. The datepicker can by styled using the 'date-control' css element, and the #datepicker css id.
 
 The datepicker is used with the TimeLocal extensions to Leaflet layers
 
@@ -25,18 +25,6 @@ map.date=new Date() ;
 
 L.control.datepicker().addTo(map) ;
 
-L.tileLayer.time(
-	 "https://gibs.earthdata.nasa.gov/wmts/epsg3031/best/{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png", 
-		{
-			layer: "AMSRU2_Sea_Ice_Concentration_12km",
-			tileMatrixSet: "1km",
-			format: "image/png",
-			transparent: true,
-			freq:'daily',
-			attribution: "<a href='https://seaice.uni-bremen.de/sea-ice-concentration/amsre-amsr2/'>AMSR2</a>",
-		}
-).addTo(map) ;
-
 ```
 
 */
@@ -44,17 +32,21 @@ L.tileLayer.time(
 L.Control.Datepicker=L.Control.extend({
 		
 	options: {
-		//🍂option position: String = 'topright'|'topleft'|'bottomleft'|'bottomright'
-		//which corner to show the datepicker on the map
+		//🍂option position: String = 'topright'
+		//'topright'|'topleft'|'bottomleft'|'bottomright'
+		//
+		// which corner to show the datepicker on the map.
 		position: 'topright',
-		//🍂option frequency: String = 'daily'|'monthly'|'yearly'|'none'
+		//🍂option frequency: String = 'monthly'
+		// 'daily'|'monthly'|'yearly'|'none'
+		//
 		//which frequency to start the datepicker on. This is changed later by the freq option for each layer added.
 		frequency: 'monthly',
-		//🍂option minDate: [String|Date object] = valid date string or date object
+		//🍂option minDate: [String|Date object] = '1980'
 		//the first date you can pick in the datepicker, default 1980
 		minDate: '1980' ,
-		//🍂option maxDate: [String|Date object] = valid date string or date object
-		//the last date you can pick in the datepicker, defaults to yesterday
+		//🍂option maxDate: [String|Date object] = yesterday
+		//the last date you can pick in the datepicker,		
 		maxDate: null
 	} ,
 

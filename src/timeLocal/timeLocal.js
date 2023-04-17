@@ -1,11 +1,26 @@
 /*
+🍂namespace Time Local
+These are the supported layers types.
+
+First create map.date and add the datepicker control, then you can add these layers.
+
+Layers from local files have urls formed with:
+fileBasePath+dateString+fileExtension
+
+- fileBasePath is all parts of the url that go before the date in the url
+- fileExtension is all parts of the url that go after the date in the url
+- dateString is :
+	- returned from this.options.dateStr(time)
+	- or 'YYYY-M-D' or 'YYYY-M' or 'YYYY' depending on the value of this.options.freq (default: daily) 
+
+
+*/
+
+/*
 
 These are functions to 'mixin' with leaflet classes to add time functions with local files
 
 It relies on a date picker being added to the map (e.g. L.Control.Date) 
-
-fileBasePath is all parts of the url that go before the date in the url
-fileExtension is all parts of the url that go after the date in the url
 
 options are shared with the leaflet class, the ones used here are:
 freq: 'daily'/'monthly'/'yearly' to specify how far apart images are in time

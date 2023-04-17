@@ -96,15 +96,22 @@ L.geoJSON.fromURL = function (path, options) {
 	
 /* 
 🍂namespace Time Local
-These are the supported layers types.
-
-Once you have created map.date and added the datepicker control, you can add these layers.
 
 🍂class GeoJSON.TimeLocal
 aka L.GeoJSON.TimeLocal
 inherits L.GeoJSON.Local
 
 Load a single GeoJSON file from local storage, with one file per timestep.
+
+
+```js
+//Constructor function:
+L.geoJSON.timeLocal(
+	startDate,
+	fileBasePath,
+	fileExtension, 
+	options
+)
 
 🍂example
 ```js
@@ -116,10 +123,9 @@ L.geoJSON.timeLocal(
 		freq: 'yearly',
 		attribution: "Derived from NSIDC CDR",
 	}
-)
+).addTo(map)
 ```
-time,fileBasePath and fileExtension are used by 'mixin' TimeLocal
-
+which in this case would show ```tracker_data/duration/duration_2022.json``` on the map.
 */
 L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 	
