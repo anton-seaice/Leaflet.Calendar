@@ -2,8 +2,8 @@ const crs = new L.Proj.CRS('EPSG:3031', '+proj=stere +lat_0=-90 +lat_ts=-71 +lon
     resolutions: [16184,8192, 4096, 2048, 1024, 512, 256],
     origin: [-4194304, 4194304],
     bounds: L.bounds (
-    [-4194304, -4194304],
-    [4194304, 4194304]
+    [-5000000, -5000000],
+    [5000000, 5000000]
     )
 });
 
@@ -47,6 +47,7 @@ layers.addOverlay(
             transparent: "true",
             freq: "monthly",
             attribution: "OSTIA",
+            tileSize: 256,
             dateStr: (date) => {
                 return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-15T12:00:00.000Z` ;
             }, 

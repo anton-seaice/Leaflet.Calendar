@@ -1,14 +1,15 @@
 import TimeFns from './timeLocal.js' ;
 
 /* 
-class TileLayer.Time 
-inherits TileLayer
+🍂namespace Time Local
+🍂class TileLayer.Time 
+Inherits L.TileLayer
 
 Used to load a single image from web (TMS server) based on the specified time. Url must include `{time}`.
 
 Other options are inherited from L.TileLayer
 
-example
+🍂example
 ```js
 L.tileLayer.time(
 	"https://gibs.earthdata.nasa.gov/wmts/epsg3031/best/{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png", 
@@ -30,9 +31,9 @@ L.TileLayer.Time = L.TileLayer.extend({
 	includes: TimeFns ,
 
 	options: {
-		//option freq: String = 'daily'
+		//🍂option freq: String = 'daily'
 		// Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
-		//option dateStr: Function(date) = returns YY-MM-DD
+		//🍂option dateStr: Function(date) = returns YY-MM-DD
 		// you might need to tweak it to suit the format required by the server
 		dateStr: (date) => {
 			return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-${String(date.getDate()).padStart(2,0)}`;
@@ -79,12 +80,13 @@ L.tileLayer.time = function (url, options) {
 }
 
 /* 
-class TileLayer.WMS.Time
-Inherits TileLayer
+🍂namespace Time Local
+🍂class TileLayer.WMS.Time
+Inherits L.TileLayer
 
 Used to load a WMS from web based on the specified time. Url must include `{time}`
 
-@example
+🍂example
 ```js
 L.tileLayer.wms.time(
 	"https://gibs.earthdata.nasa.gov/wmts/epsg3031/best/{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png", 
@@ -107,10 +109,10 @@ L.TileLayer.WMS.Time = L.TileLayer.WMS.extend({
 	includes: TimeFns ,
 	
 	options: {
-		//@option freq: String = 'daily'
+		//🍂option freq: String = 'daily'
 		//Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
 		freq:'daily' ,
-		//@option dateStr: Function(date) = returns YYYY-MM-DDTHH:mm:ss.sssZ
+		//🍂option dateStr: Function(date) = returns YYYY-MM-DDTHH:mm:ss.sssZ
 		//default date format is Zulu time, as this is more common for WMS servers than our default 
 		dateStr: (date) => {
 			return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-${String(date.getDate()).padStart(2,0)}T12:00:00.000Z`;

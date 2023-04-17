@@ -1,7 +1,7 @@
 
 var map = L.map('map', {
     center: [0, 0],
-    zoom: 2,
+    zoom: 3,
 });
 
 map.date=new Date('03/21/2021') ;
@@ -25,16 +25,3 @@ layers.addOverlay(
     ).addTo(map) ,
     "MODIS - Daily"
 );
-
-
-//graticule - for completeness
-L.graticule({
-    intervalLat: 10,
-    intervalLng: 30,
-    latBounds: [-180,181],
-    centerLatLabels:false,
-    style:{
-        color: "#bababa",
-        weight: 1, 
-    },
-}).addTo(map)

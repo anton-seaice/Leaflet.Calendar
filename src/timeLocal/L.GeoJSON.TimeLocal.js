@@ -1,4 +1,8 @@
+import TimeFns from './timeLocal.js' ;
+// import {feature} from 'topojson-client' ;
+
 /* 
+
 class GeoJSON.FromURL
 aka L.GeoJSON.FromURL
 inherits L.GeoJSON
@@ -13,9 +17,6 @@ L.geoJson.fromURL(url,options) ;
 ```
 
 */
-
-import TimeFns from './timeLocal.js' ;
-// import {feature} from 'topojson-client' ;
 
 L.GeoJSON.FromURL = L.GeoJSON.extend({
 
@@ -94,13 +95,18 @@ L.geoJSON.fromURL = function (path, options) {
 }
 	
 /* 
-class GeoJSON.TimeLocal
+🍂namespace Time Local
+These are the supported layers types.
+
+Once you have created map.date and added the datepicker control, you can add these layers.
+
+🍂class GeoJSON.TimeLocal
 aka L.GeoJSON.TimeLocal
 inherits L.GeoJSON.Local
 
-Add time handling to L.GeoJSON.FromURL
+Load a single GeoJSON file from local storage, with one file per timestep.
 
-@example
+🍂example
 ```js
 L.geoJSON.timeLocal(
 	date,
@@ -118,9 +124,9 @@ time,fileBasePath and fileExtension are used by 'mixin' TimeLocal
 L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 	
 	includes: TimeFns, 
-	//@option freq: String = 'daily'
+	//🍂option freq: String = 'daily'
 	//Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
-	//@option dateFormat: Function(date) = returns YYYY-M-D
+	//🍂option dateFormat: Function(date) = returns YYYY-M-D
 	// you might need to tweak it to suit the format required by the server
 			
 	initialize(date, fileBasePath, fileExtension, options )  {

@@ -1,13 +1,13 @@
 import TimeLocal from './timeLocal.js' ;
 
 /* 
-class ImageOverlay.TimeLocal
-
+🍂namespace Time Local
+🍂class ImageOverlay.TimeLocal
 Inherits ImageOverlay
 
 Used to load a single image from local storage based on the specified time
 
-example:
+🍂example:
 ```js
 const time = new Date() ;
 
@@ -33,9 +33,9 @@ Bounds is unchanged from L.ImageOverlay
 L.ImageOverlay.TimeLocal=L.ImageOverlay.extend({
 		
 	includes: TimeLocal ,
-	//@option freq: String = 'daily'
+	//🍂option freq: String = 'daily'
 	//Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
-	//@option dateStr: Function(date) = returns YYYY-M-D
+	//🍂option dateStr: Function(date) = returns YYYY-M-D
 	// you might need to tweak it to suit the format required 
 		
 		

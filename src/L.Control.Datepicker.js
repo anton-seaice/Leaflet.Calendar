@@ -2,9 +2,8 @@ import {createApp, ref} from 'vue' ;
 import Datepicker from './Datepicker.vue' ;
 
 /* 
-@namespace L
-@class Control.Datepicker
-@aka L.Control.Datepicker
+🍂namespace L
+🍂class L.Control.Datepicker
 Inherits L.Control
 
 This creates a leaflet 'control' with a datepicker inside it. The datepicker is an app made usign the Vue framework, and can be daily, monthly or annual.
@@ -19,8 +18,11 @@ The date is stored as a date object in map.date
 
 The datepicker is used with the TimeLocal extensions to Leaflet layers
 
-@example
+🍂example
 ```js
+
+map.date=new Date() ;
+
 L.control.datepicker().addTo(map) ;
 
 L.tileLayer.time(
@@ -42,16 +44,16 @@ L.tileLayer.time(
 L.Control.Datepicker=L.Control.extend({
 		
 	options: {
-		//@option position: String = 'topright'|'topleft'|'bottomleft'|'bottomright'
+		//🍂option position: String = 'topright'|'topleft'|'bottomleft'|'bottomright'
 		//which corner to show the datepicker on the map
 		position: 'topright',
-		//@option frequency: String = 'daily'|'monthly'|'yearly'|'none'
+		//🍂option frequency: String = 'daily'|'monthly'|'yearly'|'none'
 		//which frequency to start the datepicker on. This is changed later by the freq option for each layer added.
 		frequency: 'monthly',
-		//@option minDate: [String|Date object] = valid date string or date object
+		//🍂option minDate: [String|Date object] = valid date string or date object
 		//the first date you can pick in the datepicker, default 1980
 		minDate: '1980' ,
-		//@option maxDate: [String|Date object] = valid date string or date object
+		//🍂option maxDate: [String|Date object] = valid date string or date object
 		//the last date you can pick in the datepicker, defaults to yesterday
 		maxDate: null
 	} ,

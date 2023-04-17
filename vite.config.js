@@ -16,8 +16,8 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry:'src/leaflet-calendar.js',
-      name: 'leafletCalendar',
+      entry:'src/leaflet-datepicker.js',
+      name: 'leafletDatepicker',
       formats: ['umd']
     }
   }
