@@ -4,15 +4,16 @@ These are the supported layers types.
 
 First create map.date and add the datepicker control, then you can add these layers.
 
-Layers from local files have urls formed with:
-fileBasePath+dateString+fileExtension
+Layers from local files have urls formed with a url template, using keywords surrounded by {}. 
 
-- fileBasePath is all parts of the url that go before the date in the url
-- fileExtension is all parts of the url that go after the date in the url
-- dateString is :
-	- returned from this.options.dateStr(time)
-	- or 'YYYY-M-D' or 'YYYY-M' or 'YYYY' depending on the value of this.options.freq (default: daily) 
+The allowed keywords are :
+- dateStr: returned from this.options.dateStr(obj)
+- year: four digit year
+- month: 1/2 digit month as a number
+- day: 1/2 digit day as a number
 
+obj contains a date object, a day,month,year strings.
+e.g. dateStr:(obj) => { return obj.date.toISOString()} would let us use a {dateStr} var in the url which would return the data in `2023-04-20T04:30:06.608Z` format
 
 */
 
@@ -63,44 +64,38 @@ export const TimeFns={
 
 var TimeLocal={	
 
-	setupTimeLocal(fileBasePath, fileExtension, options) {	
-
-		this._basePath=String(fileBasePath) ;
-		this._fileExtension=String(fileExtension) ;
-		
+	setupTimeLocal(urlTemplate,options) {	
+		this._urlTemplate=String(urlTemplate) ;
 		L.setOptions(this, options) ;
-		
 	} ,
 		
 	localUrl(time) {
+		/*
+		return a url using the template this._urlTemplate and the time provided
 		
-		/*return a url in the form:
-		fileBasePath+dateString+fileExtension
-		
-		where dateString is :
-		 - returned from this.options.dateStr(time)
-		 - or 'YYYY-M-D' or 'YYYY-M' or 'YYYY' depending on the value of this.options.freq (default: daily) 
+		allowed vars in the template:
+			- date: returned from this.options.dateStr(time)
+			- year: four digit year
+			- month: 1/2 digit month as a number
+			- day: 1/2 digit day as a number
 		*/
 		
 		const d = new Date(time);
-		const year = String(d.getFullYear());
-		const month = String(d.getMonth() +1) ; //zero indexed
-		const day = String(d.getDate()) ;
-
-		if (this.options.dateStr) {
-			return this._basePath+this.options.dateStr(time)+this._fileExtension ;
-		} else {
-			switch(this.options.freq) {
-				case 'yearly' :
-					return this._basePath+year+this._fileExtension ;
-				case 'monthly' :
-					return this._basePath+year+'_'+month+this._fileExtension ;
-				case 'monthly mean' :
-					return this._basePath+month+this._fileExtension ;
-				default :
-					return this._basePath+year+'_'+month+'_'+day+this._fileExtension ;
-			}
+		const data = {
+			date:d ,
+			year: String(d.getFullYear()),
+			month: String(d.getMonth() +1) , //zero indexed
+			day: String(d.getDate()) ,
 		}
+
+		const localUrl = L.Util.template(
+			this._urlTemplate, 
+			L.Util.extend(data,this.options) //just incase there are other template vars in this.options
+		)
+
+		console.debug("New Url: " + localUrl)
+
+		return  localUrl;
 	} ,
 }
 

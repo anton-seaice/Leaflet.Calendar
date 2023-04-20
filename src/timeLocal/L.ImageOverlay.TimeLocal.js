@@ -3,29 +3,34 @@ import TimeLocal from './timeLocal.js' ;
 /* 
 🍂namespace Time Local
 🍂class ImageOverlay.TimeLocal
-Inherits ImageOverlay
+inherits L.ImageOverlay
 
-Used to load a single image from local storage based on the specified time
+Load an  image from local storage based on the specified date. The urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()
 
+```js
+//Constructor function:
+L.imageOverlay.timeLocal(
+	startDate,
+	urlTemplate,
+	bounds,
+	options
+)
+```
 🍂example
 ```js
 
 L.imageOverlay.timeLocal(
 	map.date,
-	"tracker_data/chlor_conc_anoms/occci_chlor_conc_anoms_", 
-	".png", 
-	minus40Bounds,
+	"tracker_data/chlor_conc_anoms/occci_chlor_conc_anoms_{year}_{month}.png", 
+	[[-39.23, -42.24],[-41.45, 135.0]],
 	{
-		attribution: Ocean Colour - CCI",
 		freq: 'monthly',
 		alt: 'No data for Chlorophyll Conc for this month'
 	}
 ) 
 ```
-time,fileBasePath and fileExtension are used by 'mixin' TimeLocal
 
 Bounds is unchanged from L.ImageOverlay
-
 
 */
 
@@ -34,15 +39,14 @@ L.ImageOverlay.TimeLocal=L.ImageOverlay.extend({
 	includes: TimeLocal ,
 	//🍂option freq: String = 'daily'
 	//Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
-	//🍂option dateStr: Function(date) = returns YYYY-M-D
-	// you might need to tweak it to suit the format required 
+	//🍂option dateStr: Function(obj) 
+	//function to create a custom dateStr var to use in the url template. 
 		
-		
-	initialize(time, fileBasePath, fileExtension, bounds, options ) { 
+	initialize(time, url, bounds, options ) { 
 	// (date, String, String, LatLngBounds, Object)
 			
 		this.setupTimeLocal(
-			fileBasePath, fileExtension, options
+			url, options
 		) ;
 				
 		// run the initialize function from the super class
@@ -75,6 +79,6 @@ L.ImageOverlay.TimeLocal=L.ImageOverlay.extend({
 	
 })
 
-L.imageOverlay.timeLocal = function (time, fileBasePath, fileExtension, bounds, options) {
-	return new L.ImageOverlay.TimeLocal(time, fileBasePath, fileExtension, bounds, options) ;
+L.imageOverlay.timeLocal = function (time, url, bounds, options) {
+	return new L.ImageOverlay.TimeLocal(time, url, bounds, options) ;
 }

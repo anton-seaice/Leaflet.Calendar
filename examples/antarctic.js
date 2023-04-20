@@ -18,7 +18,7 @@ map.date=new Date('01/01/2021') ;
 // add the calendar
 L.control.datepicker({minDate:'2018-01-01', maxDate:'2021-12-31'}).addTo(map) ;
 
-let layers=L.control.layers({},{}).addTo(map)
+let layers=L.control.layers({},{}, {autoZIndex:false}).addTo(map)
 
 //sea ice concentrations - daily
 layers.addOverlay(
@@ -26,6 +26,7 @@ layers.addOverlay(
         "https://gibs.earthdata.nasa.gov/wmts/epsg3031/best/{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png", 
         //the possibly odd thing here is your time field has to be called 'time' by hardcoding
         {
+            zIndex:50,
             layer: "AMSRU2_Sea_Ice_Concentration_12km",
             tileMatrixSet: "1km",
             tileSize: 256, maxNativeZoom:3, minNativeZoom:0,
@@ -34,9 +35,21 @@ layers.addOverlay(
             freq:'daily',
             attribution: "NASA-GIBS",
         }
-    ) ,
-    "Sea Ice - Daily"
+    ),
+    "Sea Ice - Daily - WMTS"
 );
+
+layers.addOverlay(
+    L.imageOverlay.timeLocal(
+        map.date,
+        "data/nsidc_sea_ice_conc_{year}_{month}.png",
+        [[-39.23, -42.24],[-41.45, 135.0]],
+        {
+            freq:'monthly',
+        }
+    ).addTo(map),
+    "Sea Ice Conc - Monthly - Image Overlay"
+)
 
 layers.addOverlay(
     L.tileLayer.wms.time(
@@ -52,15 +65,12 @@ layers.addOverlay(
             dateStr: (date) => {
                 return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-15T12:00:00.000Z` ;
             }, 
-            bounds: [[15, -180],[-80, 180]]
+            bounds: [[15, -180],[-80, 180]],
         }
     ),
-    "Sea Surface Temperature - Monthly"
+    "Sea Surface Temperature - Monthly - WMS"
 )
 
-L.imageOverlay(
-    "https://data.seaice.uni-bremen.de/amsr2/asi_daygrid_swath/s6250/2022/aug/Antarctic/asi-AMSR2-s6250-20220827-v5.4_visual.png"
-).addTo(map)
 
 //coastlines - for reference
 L.tileLayer.wms('http://geos.polarview.aq/geoserver/wms', {

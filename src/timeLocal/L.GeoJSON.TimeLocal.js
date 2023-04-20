@@ -7,27 +7,21 @@ class GeoJSON.FromURL
 aka L.GeoJSON.FromURL
 inherits L.GeoJSON
 
-Used to load a single image from local storage 
-
-Options are unchanged from L.GeoJSON
+Used to load a single image from local storage. The urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()
 
 example
 ```js
-L.geoJson.fromURL(url,options) ;
+L.geoJson.fromURL(urlTemplate,options) ;
 ```
 
 */
 
 L.GeoJSON.FromURL = L.GeoJSON.extend({
 
-	_errorJson: { "type": "FeatureCollection",
-		"features": [
-			{ 
-				"type": "Feature",
-				"geometry": { "type": "Point",  "coordinates": [0, -90] },
-				"properties": { "error": "No Data" }
-			}
-		]
+	_errorJson: { 
+		"type": "Feature",
+		"geometry": { "type": "Point",  "coordinates": [0, -90] },
+		"properties": { "error": "No Data" }
 	} ,
 	
 	initialize(path, options) {
@@ -99,47 +93,42 @@ L.geoJSON.fromURL = function (path, options) {
 
 🍂class GeoJSON.TimeLocal
 aka L.GeoJSON.TimeLocal
-inherits L.GeoJSON.Local
+inherits L.GeoJSON.FromURL
 
-Load a single GeoJSON file from local storage, with one file per timestep.
+Load a GeoJSONs file from local storage or a URL, with one file per timestep. he urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()
 
 
 ```js
 //Constructor function:
 L.geoJSON.timeLocal(
 	startDate,
-	fileBasePath,
-	fileExtension, 
+	urlTemplate,
 	options
 )
-
+```
 🍂example
 ```js
 L.geoJSON.timeLocal(
 	date,
-	"tracker_data/duration/duration_",
-	'.json',
+	"data/duration/duration_{year}.json",
 	{
 		freq: 'yearly',
-		attribution: "Derived from NSIDC CDR",
 	}
 ).addTo(map)
 ```
-which in this case would show ```tracker_data/duration/duration_2022.json``` on the map.
+which would show `data/duration/duration_2022.json` on the map if 2022 was the year shown in the calendar
 */
 L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 	
 	includes: TimeFns, 
 	//🍂option freq: String = 'daily'
 	//Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
-	//🍂option dateFormat: Function(date) = returns YYYY-M-D
-	// you might need to tweak it to suit the format required by the server
+	//🍂option dateStr: Function(obj) = None
+	// use this to create a custom dateStr var in the urlTemplate
 			
-	initialize(date, fileBasePath, fileExtension, options )  {
+	initialize(date, url, options )  {
 		
-		this.setupTimeLocal(
-			fileBasePath, fileExtension, options
-		) ;
+		this.setupTimeLocal( url, options ) ;
 		
 		L.GeoJSON.FromURL.prototype.initialize.call(
 			this,this.localUrl(date),options
@@ -165,7 +154,7 @@ L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 			this._updatePromise.then(this.clearLayers()),
 			this.fetchJsonPromise(this.localUrl(dateObj.date))
 			.catch((error) => {
-				if (error instanceof SyntaxError) {
+				if (error ) {//instanceof SyntaxError) {
 					console.log(`No ${this._basePath} for this date`) ;
 					return this._errorJson ;
 				} else { throw error ; } 
@@ -207,10 +196,10 @@ L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 				}
 			}) ;
 		
-	},
+	}
 	
 })
 
-L.geoJSON.timeLocal = function (time, fileBasePath, fileExtension, options ) {
-	return new L.GeoJSON.TimeLocal(time, fileBasePath, fileExtension, options ) ;
+L.geoJSON.timeLocal = function (date, url, options ) {
+	return new L.GeoJSON.TimeLocal(date, url, options ) ;
 }

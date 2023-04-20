@@ -9,10 +9,10 @@ export default defineConfig({
     'process.env': {}
   },
   server: {
-    port: 3000,
+    port: 3000
   },
   preview: {
-    port: 3008,
+    port: 3008
   },
   build: {
     lib: {

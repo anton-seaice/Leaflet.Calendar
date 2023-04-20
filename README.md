@@ -127,33 +127,31 @@ L.control.datepicker().addTo(map) ;
 
 <p>These are the supported layers types.</p>
 <p>First create map.date and add the datepicker control, then you can add these layers.</p>
-<p>Layers from local files have urls formed with:
-fileBasePath+dateString+fileExtension</p>
+<p>Layers from local files have urls formed with a url template, using keywords surrounded by {}.</p>
+<p>The allowed keywords are :</p>
 <ul>
-<li>fileBasePath is all parts of the url that go before the date in the url</li>
-<li>fileExtension is all parts of the url that go after the date in the url</li>
-<li>dateString is :
-<ul>
-<li>returned from this.options.dateStr(time)</li>
-<li>or 'YYYY-M-D' or 'YYYY-M' or 'YYYY' depending on the value of this.options.freq (default: daily)</li>
+<li>dateStr: returned from this.options.dateStr(obj)</li>
+<li>year: four digit year</li>
+<li>month: 1/2 digit month as a number</li>
+<li>day: 1/2 digit day as a number</li>
 </ul>
-</li>
-</ul>
+<p>obj contains a date object, a day,month,year strings.
+e.g. dateStr:(obj) =&gt; { return obj.date.toISOString()} would let us use a {dateStr} var in the url which would return the data in <code>2023-04-20T04:30:06.608Z</code> format</p>
 
 
 
 ## GeoJSON.TimeLocal
 
 <p>aka L.GeoJSON.TimeLocal
-inherits L.GeoJSON.Local</p>
-<p>Load a single GeoJSON file from local storage, with one file per timestep.</p>
+inherits L.GeoJSON.FromURL</p>
+<p>Load a GeoJSONs file from local storage or a URL, with one file per timestep. he urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()</p>
 <pre><code class="language-js">//Constructor function:
 L.geoJSON.timeLocal(
 	startDate,
-	fileBasePath,
-	fileExtension, 
+	urlTemplate,
 	options
-)</code></pre>
+)
+</code></pre>
 
 
 ### Usage example
@@ -166,15 +164,13 @@ L.geoJSON.timeLocal(
 
 <pre><code class="language-js">L.geoJSON.timeLocal(
 	date,
-	&quot;tracker_data/duration/duration_&quot;,
-	'.json',
+	&quot;data/duration/duration_{year}.json&quot;,
 	{
 		freq: 'yearly',
-		attribution: &quot;Derived from NSIDC CDR&quot;,
 	}
-)
+).addTo(map)
 </code></pre>
-<p>which in this case would show <code>tracker_data/duration/duration_2022.json</code> on the map.</p>
+<p>which would show <code>data/duration/duration_2022.json</code> on the map if 2022 was the year shown in the calendar</p>
 
 
 
@@ -202,11 +198,11 @@ L.geoJSON.timeLocal(
 		<td><code>&#x27;daily&#x27;</code></td>
 		<td>Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'</td>
 	</tr>
-	<tr id='geojson-timelocal-dateformat'>
-		<td><code><b>dateFormat</b></code></td>
-		<td><code>Function(date)</code>
-		<td><code>returns YYYY-M-D</code></td>
-		<td>you might need to tweak it to suit the format required by the server</td>
+	<tr id='geojson-timelocal-datestr'>
+		<td><code><b>dateStr</b></code></td>
+		<td><code>Function(obj)</code>
+		<td><code>None</code></td>
+		<td>use this to create a custom dateStr var in the urlTemplate</td>
 	</tr>
 </tbody></table>
 
@@ -216,8 +212,16 @@ L.geoJSON.timeLocal(
 
 ## ImageOverlay.TimeLocal
 
-<p>Inherits ImageOverlay</p>
-<p>Used to load a single image from local storage based on the specified time</p>
+<p>inherits L.ImageOverlay</p>
+<p>Load an  image from local storage based on the specified date. The urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()</p>
+<pre><code class="language-js">//Constructor function:
+L.imageOverlay.timeLocal(
+	startDate,
+	urlTemplate,
+	bounds,
+	options
+)
+</code></pre>
 
 
 ### Usage example
@@ -231,17 +235,14 @@ L.geoJSON.timeLocal(
 <pre><code class="language-js">
 L.imageOverlay.timeLocal(
 	map.date,
-	&quot;tracker_data/chlor_conc_anoms/occci_chlor_conc_anoms_&quot;, 
-	&quot;.png&quot;, 
-	minus40Bounds,
+	&quot;tracker_data/chlor_conc_anoms/occci_chlor_conc_anoms_{year}_{month}.png&quot;, 
+	[[-39.23, -42.24],[-41.45, 135.0]],
 	{
-		attribution: Ocean Colour - CCI&quot;,
 		freq: 'monthly',
 		alt: 'No data for Chlorophyll Conc for this month'
 	}
 ) 
 </code></pre>
-<p>time,fileBasePath and fileExtension are used by 'mixin' TimeLocal</p>
 <p>Bounds is unchanged from L.ImageOverlay</p>
 
 
@@ -272,9 +273,9 @@ L.imageOverlay.timeLocal(
 	</tr>
 	<tr id='imageoverlay-timelocal-datestr'>
 		<td><code><b>dateStr</b></code></td>
-		<td><code>Function(date)</code>
-		<td><code>returns YYYY-M-D</code></td>
-		<td>you might need to tweak it to suit the format required</td>
+		<td><code>Function(obj)</code>
+		<td><code></code></td>
+		<td>function to create a custom dateStr var to use in the url template.</td>
 	</tr>
 </tbody></table>
 

@@ -3,7 +3,7 @@ import TimeFns from './timeLocal.js' ;
 /* 
 🍂namespace Time Local
 🍂class TileLayer.Time 
-Inherits L.TileLayer
+inherits L.TileLayer
 
 Used to load a single image from web (TMS server) based on the specified time. Url must include `{time}`.
 
@@ -113,7 +113,7 @@ L.TileLayer.WMS.Time = L.TileLayer.WMS.extend({
 		//Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
 		freq:'daily' ,
 		//🍂option dateStr: Function(date) = returns YYYY-MM-DDTHH:mm:ss.sssZ
-		//default date format is Zulu time, as this is more common for WMS servers than our default 
+		//default date format is Zulu time, as this is more common for WMS servers 
 		dateStr: (date) => {
 			return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-${String(date.getDate()).padStart(2,0)}T12:00:00.000Z`;
 		}
