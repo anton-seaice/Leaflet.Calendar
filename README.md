@@ -2,6 +2,8 @@
 
 ## L
 
+<p><a href="https://www.npmjs.com/package/leaflet-datepicker"><img src="https://img.shields.io/npm/v/leaflet-datepicker.svg" alt="npm"></a>
+<a href="https://github.com/anton-seaice/Leaflet.Datepicker/actions"><img src="https://github.com/anton-seaice/Leaflet.Datepicker/actions/workflows/node.js.yml/badge.svg" alt="github CI"></a></p>
 <p>A calendar plugin for leaflet maps. The plugin allows you to browse through remote sensing datasets that vary over time. You add a datepicker to your <a href="https://leafletjs.com/">Leaflet</a> web-map to give end-user control over the date of the data displayed.</p>
 <p>There are two main elements needed:</p>
 <p>1:- the date picker, to select the date and</p>

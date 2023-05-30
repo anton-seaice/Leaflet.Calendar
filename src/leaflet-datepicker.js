@@ -1,9 +1,8 @@
 /*
-🍂
+🍂namespace L
 [![npm](https://img.shields.io/npm/v/leaflet-datepicker.svg)](https://www.npmjs.com/package/leaflet-datepicker)
 [![github CI](https://github.com/anton-seaice/Leaflet.Datepicker/actions/workflows/node.js.yml/badge.svg)](https://github.com/anton-seaice/Leaflet.Datepicker/actions)
 
-🍂namespace L
 A calendar plugin for leaflet maps. The plugin allows you to browse through remote sensing datasets that vary over time. You add a datepicker to your [Leaflet](https://leafletjs.com/) web-map to give end-user control over the date of the data displayed.
 
 There are two main elements needed: 
