@@ -3,7 +3,9 @@
 A calendar plugin for leaflet maps. This lets you add a datepicker to your [Leaflet](https://leafletjs.com/) web-map to give end-user control over the date of the data displayed.
 
 There are two main elements needed: 
+
 1:- the date picker, to select the date and 
+
 2:- extensions to the leaflet layers types so that information is updated when the date is changed.
 
 Click the images for examples:
