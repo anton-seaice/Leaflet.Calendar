@@ -3,7 +3,9 @@
 ## L
 
 <p>A calendar plugin for leaflet maps. This lets you add a datepicker to your <a href="https://leafletjs.com/">Leaflet</a> web-map to give end-user control over the date of the data displayed.</p>
-<p>There are two main elements needed: 1:- the date picker, to select the date and 2:- extensions to the leaflet layers types so that information is updated when the date is changed.</p>
+<p>There are two main elements needed:
+1:- the date picker, to select the date and
+2:- extensions to the leaflet layers types so that information is updated when the date is changed.</p>
 <p>Click the images for examples:</p>
 <p><a href="https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html"><img src="./examples/antarcticScreenshot.jpg" alt="Antarctic Example"></a>
 <a href="https://anton-seaice.github.io/Leaflet.Datepicker/examples/simple.html"><img src="./examples/simpleScreenshot.jpg" alt="Simple Example"></a>]</p>
@@ -44,7 +46,7 @@ export default defineConfig({
 ## L.Control.Datepicker
 
 <p>Inherits L.Control</p>
-<p>This creates a leaflet 'control' with a datepicker inside it. The datepicker can be daily, monthly or annual. This changes the value of map.date, when the calendar is changes, and also emits the date used a &quot;dayChanged&quot;, &quot;monthChanged&quot; and or &quot;yearChanged&quot; event</p>
+<p>This creates a leaflet 'control' with a datepicker inside it. The datepicker can be daily, monthly or annual. This changes the value of map.date, when the calendar is changes, and also emits the date used a &quot;dayChanged&quot;, &quot;monthChanged&quot; and or &quot;yearChanged&quot; event.</p>
 <p>The frequency of the datepicker is set by the 'freq' option for each layer added to the map. The highest frequency 'freq' option set for layers added to the map is used as the date picker. e.g:</p>
 <ul>
 <li>If no layers have the 'freq' option, then the datepicker does not show (but there is an empty space in allocated for it)</li>
@@ -53,7 +55,7 @@ export default defineConfig({
 <li>If one layer has the 'daily' option set, and two layers have 'monthly', and three have 'yearly', the daily calendar is shown.</li>
 </ul>
 <p>The date is stored as a date object in map.date. The datepicker can by styled using the 'date-control' css element, and the #datepicker css id.</p>
-<p>The datepicker is used with the TimeLocal extensions to Leaflet layers</p>
+<p>The datepicker is used with the TimeLocal extensions to Leaflet layers.</p>
 
 
 ### Usage example
@@ -70,6 +72,7 @@ map.date=new Date() ;
 L.control.datepicker().addTo(map) ;
 
 </code></pre>
+<p>There are lots of options in the vue-datepicker which are not-supported by the plugin (but it would be easy enough to add them). For example there is no support of date-ranges, time of day, multi-calendars etc</p>
 
 
 
@@ -285,7 +288,7 @@ L.imageOverlay.timeLocal(
 
 ## TileLayer.Time
 
-<p>Inherits L.TileLayer</p>
+<p>inherits L.TileLayer</p>
 <p>Used to load a single image from web (TMS server) based on the specified time. Url must include <code>{time}</code>.</p>
 <p>Other options are inherited from L.TileLayer</p>
 
@@ -408,7 +411,7 @@ L.imageOverlay.timeLocal(
 		<td><code><b>dateStr</b></code></td>
 		<td><code>Function(date)</code>
 		<td><code>returns YYYY-MM-DDTHH:mm:ss.sssZ</code></td>
-		<td>default date format is Zulu time, as this is more common for WMS servers than our default</td>
+		<td>default date format is Zulu time, as this is more common for WMS servers</td>
 	</tr>
 </tbody></table>
 

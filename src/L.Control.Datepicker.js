@@ -6,7 +6,7 @@ import Datepicker from './Datepicker.vue' ;
 🍂class L.Control.Datepicker
 Inherits L.Control
 
-This creates a leaflet 'control' with a datepicker inside it. The datepicker can be daily, monthly or annual. This changes the value of map.date, when the calendar is changes, and also emits the date used a "dayChanged", "monthChanged" and or "yearChanged" event
+This creates a leaflet 'control' with a datepicker inside it. The datepicker can be daily, monthly or annual. This changes the value of map.date, when the calendar is changes, and also emits the date used a "dayChanged", "monthChanged" and or "yearChanged" event.
 
 The frequency of the datepicker is set by the 'freq' option for each layer added to the map. The highest frequency 'freq' option set for layers added to the map is used as the date picker. e.g:
 - If no layers have the 'freq' option, then the datepicker does not show (but there is an empty space in allocated for it)
@@ -16,7 +16,7 @@ The frequency of the datepicker is set by the 'freq' option for each layer added
 
 The date is stored as a date object in map.date. The datepicker can by styled using the 'date-control' css element, and the #datepicker css id.
 
-The datepicker is used with the TimeLocal extensions to Leaflet layers
+The datepicker is used with the TimeLocal extensions to Leaflet layers.
 
 🍂example
 ```js
@@ -26,6 +26,8 @@ map.date=new Date() ;
 L.control.datepicker().addTo(map) ;
 
 ```
+
+There are lots of options in the vue-datepicker which are not-supported by the plugin (but it would be easy enough to add them). For example there is no support of date-ranges, time of day, multi-calendars etc
 
 */
 
