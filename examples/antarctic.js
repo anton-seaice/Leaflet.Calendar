@@ -23,7 +23,7 @@ let layers=L.control.layers({},{}, {autoZIndex:false}).addTo(map)
 //sea ice concentrations - daily
 layers.addOverlay(
     L.tileLayer.time(
-        "https://gibs.earthdata.nasa.gov/wmts/epsg3031/best/{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png", 
+        "https://gibs.earthdata.nasa.gov/wmts/epsg3031/best/{layer}/default/{dateStr}/{tileMatrixSet}/{z}/{y}/{x}.png", 
         //the possibly odd thing here is your time field has to be called 'time' by hardcoding
         {
             zIndex:50,

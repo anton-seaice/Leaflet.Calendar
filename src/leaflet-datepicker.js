@@ -1,6 +1,6 @@
 /*
 🍂namespace L
-A calendar plugin for leaflet maps. This lets you add a datepicker to your [Leaflet](https://leafletjs.com/) web-map to give end-user control over the date of the data displayed.
+A calendar plugin for leaflet maps. The plugin allows you to browse through remote sensing datasets that vary over time. You add a datepicker to your [Leaflet](https://leafletjs.com/) web-map to give end-user control over the date of the data displayed.
 
 There are two main elements needed: 
 
@@ -15,33 +15,29 @@ Click the images for examples:
 
 This plugin uses the [Vue Datepicker](https://vue3datepicker.com/), but you do not need to be using Vue. It is standalone.
 
-Simple install:
+
 
 🍂example
+Simple install:
 ```js
-<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+add to your html file
+<script src="https://unpkg.com/... integrity="..." crossorigin=""></script>
 and the css file
 ```
 
 if you are using npm, install leaflet-datepicker
-🍂example
 ```js
 import 'leaflet-datepicker'
 import '../node_modules/leaflet-calendar/dist/style.css'
 ```
 
 if you are using vite, also install @vitejs/plugin-vue (as dev dependency). Add the vue plugin in vite.config.js:
-🍂example
 ```js
 import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   ... //the rest of your config
 ```
-
-#To-do
-
-an example with Geojson points - i.e. if you have a calendar, could you show what events are on in your city on that day?
 
 */
 

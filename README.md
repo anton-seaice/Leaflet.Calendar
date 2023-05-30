@@ -2,7 +2,7 @@
 
 ## L
 
-<p>A calendar plugin for leaflet maps. This lets you add a datepicker to your <a href="https://leafletjs.com/">Leaflet</a> web-map to give end-user control over the date of the data displayed.</p>
+<p>A calendar plugin for leaflet maps. The plugin allows you to browse through remote sensing datasets that vary over time. You add a datepicker to your <a href="https://leafletjs.com/">Leaflet</a> web-map to give end-user control over the date of the data displayed.</p>
 <p>There are two main elements needed:</p>
 <p>1:- the date picker, to select the date and</p>
 <p>2:- extensions to the leaflet layers types so that information is updated when the date is changed.</p>
@@ -10,7 +10,6 @@
 <p><a href="https://anton-seaice.github.io/Leaflet.Datepicker/examples/antarctic.html"><img src="./examples/antarcticScreenshot.jpg" alt="Antarctic Example"></a>
 <a href="https://anton-seaice.github.io/Leaflet.Datepicker/examples/simple.html"><img src="./examples/simpleScreenshot.jpg" alt="Simple Example"></a>]</p>
 <p>This plugin uses the <a href="https://vue3datepicker.com/">Vue Datepicker</a>, but you do not need to be using Vue. It is standalone.</p>
-<p>Simple install:</p>
 
 
 ### Usage example
@@ -21,7 +20,9 @@
 
 
 
-<pre><code class="language-js">&lt;script src=&quot;https://unpkg.com/leaflet@1.9.2/dist/leaflet.js&quot; integrity=&quot;sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=&quot; crossorigin=&quot;&quot;&gt;&lt;/script&gt;
+<p>Simple install:</p>
+<pre><code class="language-js">add to your html file
+&lt;script src=&quot;https://unpkg.com/... integrity=&quot;...&quot; crossorigin=&quot;&quot;&gt;&lt;/script&gt;
 and the css file
 </code></pre>
 <p>if you are using npm, install leaflet-datepicker</p>
@@ -34,8 +35,6 @@ export default defineConfig({
  plugins: [vue()],
  ... //the rest of your config
 </code></pre>
-<p>#To-do</p>
-<p>an example with Geojson points - i.e. if you have a calendar, could you show what events are on in your city on that day?</p>
 
 
 
@@ -128,26 +127,28 @@ L.control.datepicker().addTo(map) ;
 
 ## Time Local
 
-<p>These are the supported layers types.</p>
-<p>First create map.date and add the datepicker control, then you can add these layers.</p>
+<p>These are the layers types which are supported and then change when the date on the map is change.</p>
+<p>First create map.date and add the datepicker control, then you can add these layers to your javascript.</p>
 <p>Layers from local files have urls formed with a url template, using keywords surrounded by {}.</p>
 <p>The allowed keywords are :</p>
 <ul>
-<li>dateStr: returned from this.options.dateStr(obj)</li>
-<li>year: four digit year</li>
-<li>month: 1/2 digit month as a number</li>
-<li>day: 1/2 digit day as a number</li>
+<li>{year}: four digit year (e.g. would be replace with 2022 if this is the year selected in the calendar)</li>
+<li>{month}: 1/2 digit month as a number (e.g. would shown 1 for Jan, and 10 for October)</li>
+<li>{day}: 1/2 digit day as a number (e.g. would show 1 for the 1st and 30 for the 30th)</li>
+<li>{dateStr}: returned from this.options.dateStr(obj) function. Where obj contains a date object and a day,month and year strings.
+e.g.
+<code>dateStr:(obj) =&gt; { return obj.date.toISOString()} </code>
+would let us use a {dateStr} template var in the url,  which in turn would return the data in <code>2023-04-20T04:30:06.608Z</code> format</li>
 </ul>
-<p>obj contains a date object, a day,month,year strings.
-e.g. dateStr:(obj) =&gt; { return obj.date.toISOString()} would let us use a {dateStr} var in the url which would return the data in <code>2023-04-20T04:30:06.608Z</code> format</p>
+<p>Look at the examples for each layer type below.</p>
 
 
 
 ## GeoJSON.TimeLocal
 
-<p>aka L.GeoJSON.TimeLocal
-inherits L.GeoJSON.FromURL</p>
-<p>Load a GeoJSONs file from local storage or a URL, with one file per timestep. he urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()</p>
+<p>aka L.GeoJSON.TimeLocal</p>
+<p>inherits L.GeoJSON.FromURL</p>
+<p>Load a GeoJSONs file from local storage or a url template, with one file per timestep.</p>
 <pre><code class="language-js">//Constructor function:
 L.geoJSON.timeLocal(
 	startDate,
@@ -173,7 +174,7 @@ L.geoJSON.timeLocal(
 	}
 ).addTo(map)
 </code></pre>
-<p>which would show <code>data/duration/duration_2022.json</code> on the map if 2022 was the year shown in the calendar</p>
+<p>which would show <code>data/duration/duration_2022.json</code> on the map if 2022 was the year selected in the calendar</p>
 
 
 
@@ -216,7 +217,7 @@ L.geoJSON.timeLocal(
 ## ImageOverlay.TimeLocal
 
 <p>inherits L.ImageOverlay</p>
-<p>Load an  image from local storage based on the specified date. The urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()</p>
+<p>Load an  image from local storage based on the specified date.</p>
 <pre><code class="language-js">//Constructor function:
 L.imageOverlay.timeLocal(
 	startDate,
@@ -277,7 +278,7 @@ L.imageOverlay.timeLocal(
 	<tr id='imageoverlay-timelocal-datestr'>
 		<td><code><b>dateStr</b></code></td>
 		<td><code>Function(obj)</code>
-		<td><code></code></td>
+		<td><code>None</code></td>
 		<td>function to create a custom dateStr var to use in the url template.</td>
 	</tr>
 </tbody></table>

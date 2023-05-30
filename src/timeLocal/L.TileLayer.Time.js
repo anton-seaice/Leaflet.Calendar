@@ -35,15 +35,14 @@ L.TileLayer.Time = L.TileLayer.extend({
 		// Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
 		//🍂option dateStr: Function(date) = returns YY-MM-DD
 		// you might need to tweak it to suit the format required by the server
-		dateStr: (date) => {
-			return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-${String(date.getDate()).padStart(2,0)}`;
+		dateStr: (o) => {
+			return `${o.date.getFullYear()}-${String(o.date.getMonth()+1).padStart(2,0)}-${String(o.date.getDate()).padStart(2,0)}`;
 		}
 	} ,
 
 	onAdd: function(map) {
 		
-		const d = new Date(map.date);
-		this.options.time = this.options.dateStr(d) ;
+		this.options.date = new Date(map.date);
 
 		this.startEventListener(map) ;
 
@@ -60,8 +59,7 @@ L.TileLayer.Time = L.TileLayer.extend({
 	
 	updateTime: function(eventValue) {
 		
-		const d = new Date(eventValue.date);
-		this.options.time = this.options.dateStr(d)  ;
+		this.options.date= new Date(eventValue.date);
 		this.redraw() ;
 
 	},
@@ -84,22 +82,26 @@ L.tileLayer.time = function (url, options) {
 🍂class TileLayer.WMS.Time
 Inherits L.TileLayer
 
-Used to load a WMS from web based on the specified time. Url must include `{time}`
+Used to load a WMS from web based on the specified time. Url must include `{dateStr}`
 
 🍂example
 ```js
 L.tileLayer.wms.time(
-	"https://gibs.earthdata.nasa.gov/wmts/epsg3031/best/{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png", 
-	{
-		layer: "AMSRU2_Sea_Ice_Concentration_12km",
-		tileMatrixSet: "1km",
-		tileSize: 256, 
-		format: "image/png",
-		transparent: true,
-		freq:'daily',
-		attribution: "AMSR2",
-	}
-)
+        "https://my.cmems-du.eu/thredds/wms/METOFFICE-GLO-SST-L4-REP-OBS-SST",
+        {
+            layers: "analysed_sst", 
+            styles: "boxfill/occam" ,
+            format: "image/png",
+            transparent: "true",
+            freq: "monthly",
+            attribution: "OSTIA",
+            tileSize: 256,
+            dateStr: (date) => {
+                return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-15T12:00:00.000Z` ; //custom date format
+            }, 
+            bounds: [[15, -180],[-80, 180]],
+        }
+    ),
 ```
 
 */

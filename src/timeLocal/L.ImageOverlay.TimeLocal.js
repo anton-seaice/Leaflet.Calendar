@@ -5,7 +5,7 @@ import TimeLocal from './timeLocal.js' ;
 🍂class ImageOverlay.TimeLocal
 inherits L.ImageOverlay
 
-Load an  image from local storage based on the specified date. The urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()
+Load an  image from local storage based on the specified date. 
 
 ```js
 //Constructor function:
@@ -39,7 +39,7 @@ L.ImageOverlay.TimeLocal=L.ImageOverlay.extend({
 	includes: TimeLocal ,
 	//🍂option freq: String = 'daily'
 	//Frequency of steps between data in this data set. Options are 'daily','monthly','yearly'
-	//🍂option dateStr: Function(obj) 
+	//🍂option dateStr: Function(obj) = None
 	//function to create a custom dateStr var to use in the url template. 
 		
 	initialize(time, url, bounds, options ) { 

@@ -4,14 +4,15 @@ import TimeFns from './timeLocal.js' ;
 /* 
 
 class GeoJSON.FromURL
+
 aka L.GeoJSON.FromURL
+
 inherits L.GeoJSON
 
-Used to load a single image from local storage. The urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()
-
+Used to load a single image from local storage. 
 example
 ```js
-L.geoJson.fromURL(urlTemplate,options) ;
+	L.geoJson.fromURL(url,options) ;
 ```
 
 */
@@ -92,11 +93,12 @@ L.geoJSON.fromURL = function (path, options) {
 🍂namespace Time Local
 
 🍂class GeoJSON.TimeLocal
+
 aka L.GeoJSON.TimeLocal
+
 inherits L.GeoJSON.FromURL
 
-Load a GeoJSONs file from local storage or a URL, with one file per timestep. he urlTemplate can use the words {year}, {month} or {day} or {date},which is formated by this.options.dateStr()
-
+Load a GeoJSONs file from local storage or a url template, with one file per timestep. 
 
 ```js
 //Constructor function:
@@ -116,7 +118,7 @@ L.geoJSON.timeLocal(
 	}
 ).addTo(map)
 ```
-which would show `data/duration/duration_2022.json` on the map if 2022 was the year shown in the calendar
+which would show `data/duration/duration_2022.json` on the map if 2022 was the year selected in the calendar
 */
 L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 	

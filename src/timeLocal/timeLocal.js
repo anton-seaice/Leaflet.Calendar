@@ -1,19 +1,21 @@
 /*
 🍂namespace Time Local
-These are the supported layers types.
+These are the layers types which are supported and then change when the date on the map is change.
 
-First create map.date and add the datepicker control, then you can add these layers.
+First create map.date and add the datepicker control, then you can add these layers to your javascript.
 
 Layers from local files have urls formed with a url template, using keywords surrounded by {}. 
 
 The allowed keywords are :
-- dateStr: returned from this.options.dateStr(obj)
-- year: four digit year
-- month: 1/2 digit month as a number
-- day: 1/2 digit day as a number
+- {year}: four digit year (e.g. would be replace with 2022 if this is the year selected in the calendar)
+- {month}: 1/2 digit month as a number (e.g. would shown 1 for Jan, and 10 for October)
+- {day}: 1/2 digit day as a number (e.g. would show 1 for the 1st and 30 for the 30th)
+- {dateStr}: returned from this.options.dateStr(obj) function. Where obj contains a date object and a day,month and year strings.
+e.g. 
+```dateStr:(obj) => { return obj.date.toISOString()} ```
+would let us use a {dateStr} template var in the url,  which in turn would return the data in `2023-04-20T04:30:06.608Z` format
 
-obj contains a date object, a day,month,year strings.
-e.g. dateStr:(obj) => { return obj.date.toISOString()} would let us use a {dateStr} var in the url which would return the data in `2023-04-20T04:30:06.608Z` format
+Look at the examples for each layer type below.
 
 */
 
