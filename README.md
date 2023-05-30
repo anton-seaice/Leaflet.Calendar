@@ -357,7 +357,7 @@ L.imageOverlay.timeLocal(
 ## TileLayer.WMS.Time
 
 <p>Inherits L.TileLayer</p>
-<p>Used to load a WMS from web based on the specified time. Url must include <code>{time}</code></p>
+<p>Used to load a WMS from web based on the specified time. Url must include <code>{dateStr}</code></p>
 
 
 ### Usage example
@@ -369,17 +369,21 @@ L.imageOverlay.timeLocal(
 
 
 <pre><code class="language-js">L.tileLayer.wms.time(
-	&quot;https://gibs.earthdata.nasa.gov/wmts/epsg3031/best/{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png&quot;, 
-	{
-		layer: &quot;AMSRU2_Sea_Ice_Concentration_12km&quot;,
-		tileMatrixSet: &quot;1km&quot;,
-		tileSize: 256, 
-		format: &quot;image/png&quot;,
-		transparent: true,
-		freq:'daily',
-		attribution: &quot;AMSR2&quot;,
-	}
-)
+       &quot;https://my.cmems-du.eu/thredds/wms/METOFFICE-GLO-SST-L4-REP-OBS-SST&quot;,
+       {
+           layers: &quot;analysed_sst&quot;, 
+           styles: &quot;boxfill/occam&quot; ,
+           format: &quot;image/png&quot;,
+           transparent: &quot;true&quot;,
+           freq: &quot;monthly&quot;,
+           attribution: &quot;OSTIA&quot;,
+           tileSize: 256,
+           dateStr: (date) =&gt; {
+               return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,0)}-15T12:00:00.000Z` ; //custom date format
+           }, 
+           bounds: [[15, -180],[-80, 180]],
+       }
+   ),
 </code></pre>
 
 

@@ -13,7 +13,7 @@ let layers=L.control.layers({},{}).addTo(map)
 //sea ice concentrations - daily
 layers.addOverlay(
     L.tileLayer.time(
-        "http://gibs.earthdata.nasa.gov/wmts/epsg3857/best/{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.jpeg", 
+        "http://gibs.earthdata.nasa.gov/wmts/epsg3857/best/{layer}/default/{dateStr}/{tileMatrixSet}/{z}/{y}/{x}.jpeg", 
         {
             layer: "MODIS_Terra_CorrectedReflectance_TrueColor",
             tileMatrixSet: "GoogleMapsCompatible_Level9",
