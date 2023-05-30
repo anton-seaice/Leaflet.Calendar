@@ -22,9 +22,10 @@
 
 <p>Simple install:</p>
 <pre><code class="language-js">add to your html file
-&lt;script src=&quot;https://unpkg.com/... integrity=&quot;...&quot; crossorigin=&quot;&quot;&gt;&lt;/script&gt;
-and the css file
+&lt;script src=&quot;https://unpkg.com/leaflet-datepicker/dist/leaflet-datepicker.umd.cjs&quot; integrity=&quot;...&quot; crossorigin=&quot;&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/leaflet-datepicker/dist/style.css&quot; integrity=&quot;...&quot; crossorigin=&quot;&quot;&gt;&lt;/script&gt;
 </code></pre>
+<p>(Best practice is to include integrity keys, e.g. from https://www.srihash.org)</p>
 <p>if you are using npm, install leaflet-datepicker</p>
 <pre><code class="language-js">import 'leaflet-datepicker'
 import '../node_modules/leaflet-calendar/dist/style.css'

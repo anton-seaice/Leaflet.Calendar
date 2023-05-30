@@ -1,4 +1,8 @@
 /*
+🍂
+[![npm](https://img.shields.io/npm/v/leaflet-datepicker.svg)](https://www.npmjs.com/package/leaflet-datepicker)
+[![github CI](https://github.com/anton-seaice/Leaflet.Datepicker/actions/workflows/node.js.yml/badge.svg)](https://github.com/anton-seaice/Leaflet.Datepicker/actions)
+
 🍂namespace L
 A calendar plugin for leaflet maps. The plugin allows you to browse through remote sensing datasets that vary over time. You add a datepicker to your [Leaflet](https://leafletjs.com/) web-map to give end-user control over the date of the data displayed.
 
@@ -15,15 +19,14 @@ Click the images for examples:
 
 This plugin uses the [Vue Datepicker](https://vue3datepicker.com/), but you do not need to be using Vue. It is standalone.
 
-
-
 🍂example
 Simple install:
 ```js
 add to your html file
-<script src="https://unpkg.com/... integrity="..." crossorigin=""></script>
-and the css file
+<script src="https://unpkg.com/leaflet-datepicker/dist/leaflet-datepicker.umd.cjs" integrity="..." crossorigin=""></script>
+<script src="https://unpkg.com/leaflet-datepicker/dist/style.css" integrity="..." crossorigin=""></script>
 ```
+(Best practice is to include integrity keys, e.g. from https://www.srihash.org)
 
 if you are using npm, install leaflet-datepicker
 ```js
