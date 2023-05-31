@@ -1,6 +1,6 @@
 {
   "name": "leaflet-datepicker",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Adds a calendar to a leaflet map",
   "type": "module",
   "main": "dist/leaflet-datepicker.umd.cjs",
