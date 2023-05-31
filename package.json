@@ -3,7 +3,7 @@
   "version": "0.0.6",
   "description": "Adds a calendar to a leaflet map",
   "type": "module",
-  "main": "src/leaflet-datepicker.js",
+  "main": "dist/leaflet-datepicker.umd.cjs",
   "scripts": {
     "test": "eslint ./src ./cypress && cypress run --component --browser chrome && cypress run --component --browser firefox",
     "prebuild": "leafdoc -t node_modules/leafdoc/templates/markdown -o README.md src",
