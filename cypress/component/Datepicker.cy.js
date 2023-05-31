@@ -145,7 +145,7 @@ describe('<Datepicker />', () => {
     it('keyNavigationMonthly', () => {
 
       freq.value = 'monthly' ;
-      testDate = new Date('01 Jan 2020') ;
+      testDate = new Date('30 Jan 2020') ;
       callCount = 1 ;
       
       const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
@@ -153,7 +153,7 @@ describe('<Datepicker />', () => {
       cy.mount(Datepicker, {
         props:{
           freq:freq ,
-          startDate: new Date('01 Jan 2020') ,
+          startDate: new Date('30 Jan 2020') ,
           onDateChange:onDateChangeSpy
         }
       }).then(() =>{
@@ -175,6 +175,58 @@ describe('<Datepicker />', () => {
         monthType('{leftArrow}') ; incrementMonthBy(-1) ;
       }).then(() => {
         monthType('{upArrow}') ; incrementMonthBy(1) ;
+      }).then(() => {
+        monthType('{rightArrow}') ; incrementMonthBy(1) ;
+      }).then(() => {
+        //re-run with a daily calendar
+        freq.value = 'daily' ;
+        cy.wait(500) ;
+        if (calendarOpen==true) cy.get('[id=datepicker]').click() ;
+        cy.get('[id=monthInput]').should('not.be.focused') ;
+        cy.get('[id=monthInput]').click().should('be.focused') ;
+        monthType('{downArrow}') ; incrementMonthBy(-1) ;
+      }).then(() => {
+        monthType('{leftArrow}') ; incrementMonthBy(-1) ;
+      }).then(() => {
+        monthType('{upArrow}') ; incrementMonthBy(1) ;
+      }).then(() => {
+        monthType('{rightArrow}') ; incrementMonthBy(1) ;
+      })
+    }) ;
+
+    it('keyNavigationMonthlyOn31stMonth', () => {
+
+      freq.value = 'monthly' ;
+      testDate = new Date('31 Jan 2020') ;
+      callCount = 1 ;
+      
+      const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
+
+      cy.mount(Datepicker, {
+        props:{
+          freq:freq ,
+          startDate: new Date('31 Jan 2020') ,
+          onDateChange:onDateChangeSpy
+        }
+      }).then(() =>{
+        cy.get('@onDateChangeSpy').should('have.callCount',callCount) ;
+
+        if (calendarOpen==true) {
+          cy.get('[id=datepicker]').click() ;
+          cy.get('[id=monthInput]').should('be.focused') ;
+          cy.get('[class=dp__instance_calendar]').should('exist');
+        }
+        else {
+          cy.get('[id=monthInput]').should('not.be.focused') ;
+          cy.get('[id=monthInput]').click().should('be.focused') ;
+          cy.get('[class=dp__instance_calendar]').should('not.exist');
+        }
+        //when you press the uparrow, month increments by 2, because there is no 31st Feb
+        monthType('{upArrow}') ; incrementMonthBy(1) ;
+      }).then(() => {
+        monthType('{downArrow}') ; incrementMonthBy(-1) ;
+      }).then(() => {
+        monthType('{leftArrow}') ; incrementMonthBy(-1) ;
       }).then(() => {
         monthType('{rightArrow}') ; incrementMonthBy(1) ;
       }).then(() => {
@@ -251,6 +303,69 @@ describe('<Datepicker />', () => {
       freq.value='yearly'
       callCount = 1 ;
       testDate = new Date() ;
+        
+      const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
+
+      cy.mount(Datepicker, {
+        props:{
+          freq:freq ,
+          startDate: new Date(testDate)  ,
+          onDateChange:onDateChangeSpy
+        }
+      }).then(() =>{
+        cy.get('@onDateChangeSpy').should('have.callCount',callCount) ;
+
+        if (calendarOpen==true) {
+          cy.get('[id=datepicker]').click() ;
+          cy.get('[id=yearInput]').should('be.focused') ;
+          cy.get('[class=dp__instance_calendar]').should('exist');
+        }
+        else {
+          cy.get('[id=yearInput]').should('not.be.focused') ;
+          cy.get('[id=yearInput]').click().should('be.focused') ;
+          cy.get('[class=dp__instance_calendar]').should('not.exist');
+        }
+
+      }).then(() => {
+        yearType('{downArrow}') ; incrementYearBy(-1) ;
+      }).then(() => {
+        yearType('{leftArrow}') ; incrementYearBy(-1) ;
+      }).then(() => {
+        yearType('{upArrow}') ; incrementYearBy(1) ;
+      }).then(() => {
+        yearType('{rightArrow}') ; incrementYearBy(1) ;
+      }).then(() => {
+        freq.value = 'monthly' ;
+        cy.wait(500) ;
+        if (calendarOpen==true) cy.get('[id=datepicker]').click() ;
+        cy.get('[id=yearInput]').click().should('be.focused') ;
+        yearType('{downArrow}') ; incrementYearBy(-1) ;
+      }).then(() => {
+        yearType('{leftArrow}') ; incrementYearBy(-1) ;
+      }).then(() => {
+        yearType('{upArrow}') ; incrementYearBy(1) ;
+      }).then(() => {
+        yearType('{rightArrow}') ; incrementYearBy(1) ;
+      }).then(() => {
+        freq.value = 'daily' ;
+        cy.wait(500) ;
+        if (calendarOpen==true) cy.get('[id=datepicker]').click() ;
+        cy.get('[id=yearInput]').click().should('be.focused') ;
+        yearType('{downArrow}') ; incrementYearBy(-1) ;
+      }).then(() => {
+        yearType('{leftArrow}') ; incrementYearBy(-1) ;
+      }).then(() => {
+        yearType('{upArrow}') ; incrementYearBy(1) ;
+      }).then(() => {
+        yearType('{rightArrow}') ; incrementYearBy(1) ;
+      })
+    }) ;
+
+    it('keyNavigationYearlyOn29thFeb', () => {
+
+      freq.value='yearly'
+      callCount = 1 ;
+      testDate = new Date('29 Feb 2020') ;
         
       const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
 

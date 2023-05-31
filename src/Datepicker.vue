@@ -110,7 +110,7 @@ Extend the vue datepicker by:
 		newDate.setMonth(modelData.month) ;
 		newDate.setYear(modelData.year) ;
 		date.value=newDate;
-		month.value=modelData ;
+		month.value={'month':newDate.getMonth(),'year':newDate.getFullYear()} //If the old date was the 31st day of the month, this might increment by 0/2 months, instead of the 1 expecte by the keypress, so check from the date value (might not match modelData anymore) ;
 		emit('dateChange', date.value) ;
 		monthInput.value.focus() ;
 	} 
@@ -119,7 +119,7 @@ Extend the vue datepicker by:
 		const newDate = new Date(date.value) ;
 		newDate.setYear(modelData) ;
 		date.value=newDate;
-		month.value.year=modelData ;
+		month.value={'month':newDate.getMonth(),'year':newDate.getFullYear()} //If the old date was the 29th of feb, changing the year increments to 1st march, so need to set the month using the newDate (might not match modelData anymore) 
 		emit('dateChange', date.value) ;
 		yearInput.value.focus() ;
 	}
