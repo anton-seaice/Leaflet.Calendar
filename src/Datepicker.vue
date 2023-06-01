@@ -255,7 +255,7 @@ Extend the vue datepicker by:
 
 </template>
 
-<style scoped>
+<style>
 	#monthInput {
 		width:19px ;
 	}
@@ -280,7 +280,6 @@ Extend the vue datepicker by:
 		z-index:810 ;
 		border: 2px solid rgba(0,0,0,0.2);
 		background-clip: padding-box;
-		border-radius: 5px;
-		background: #fff;
+		border-radius: 5px ;
 	}
 </style>
