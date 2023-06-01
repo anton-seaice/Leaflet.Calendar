@@ -4,7 +4,6 @@ tsconfig.json
 tests
 demo
 coverage
-src
 examples
 rollup.config.js
 vite.config.js
