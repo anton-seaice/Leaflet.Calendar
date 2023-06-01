@@ -5,6 +5,13 @@
   "type": "module",
   "main": "src/leaflet-datepicker.js",
   "includes": "dist",
+  "exports": {
+    "./Ldatepicker":"./src/L.Control.Datepicker.js",
+    "./Lgeojson":"./src/timeLocal/L.GeoJSON.TimeLocal.js",
+    "./Limageoverlay":"./src/timeLocal/L.ImageOverlay.TimeLocal.js",
+    "./Ltilelayer":"./src/timeLocal/L.TileLayer.Time.js",
+    "./timeLocal":"./src/timeLocal/timeLocal.js"
+  },
   "scripts": {
     "test": "eslint ./src ./cypress && cypress run --component --browser chrome && cypress run --component --browser firefox",
     "prebuild": "leafdoc -t node_modules/leafdoc/templates/markdown -o README.md src",
