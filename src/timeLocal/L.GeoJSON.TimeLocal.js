@@ -1,5 +1,5 @@
 import TimeFns from './timeLocal.js' ;
-// import {feature} from 'topojson-client' ;
+import {feature} from 'topojson-client' ;
 
 /* 
 
@@ -52,17 +52,17 @@ L.GeoJSON.FromURL = L.GeoJSON.extend({
 
 	addData (data) {
 		// to support topojson files, we want to do some pre-processing if it is a topo-json
-		// var geojson, key;
-		// if (data.type === "Topology") {
-		// 	for (key in data.objects) {
-		// 		// if (data.objects.hasOwnProperty(key)) {
-		// 		geojson = feature(data, data.objects[key]);
-		// 		L.GeoJSON.prototype.addData.call(this, geojson);
-		// 		// }
-		// 	}
-		// } else {
+		var geojson, key;
+		if (data.type === "Topology") {
+			for (key in data.objects) {
+				// if (data.objects.hasOwnProperty(key)) {
+				geojson = feature(data, data.objects[key]);
+				L.GeoJSON.prototype.addData.call(this, geojson);
+				// }
+			}
+		} else {
 			L.GeoJSON.prototype.addData.call(this, data);
-		// }
+		}
 		return this;
 	} ,
 
@@ -128,7 +128,7 @@ L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 	//🍂option dateStr: Function(obj) = None
 	// use this to create a custom dateStr var in the urlTemplate
 			
-	initialize(date, url, options )  {
+	initialize(date, url, options)  {
 		
 		this.setupTimeLocal( url, options ) ;
 		
@@ -140,10 +140,12 @@ L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 	
 	onAdd(map) {
 		
-		this.startEventListener(map) ;
-		
 		this._updatePromise = L.GeoJSON.FromURL.prototype.onAdd.call(this,map) ;
 
+		this._updatePromise.then(() => {
+			this.startEventListener(map) ;
+		})
+		
 		this.updateTime(map) ;
 		
 	} ,
@@ -156,8 +158,8 @@ L.GeoJSON.TimeLocal = L.GeoJSON.FromURL.extend({
 			this._updatePromise.then(this.clearLayers()),
 			this.fetchJsonPromise(this.localUrl(dateObj.date))
 			.catch((error) => {
-				if (error ) {//instanceof SyntaxError) {
-					console.log(`No ${this._basePath} for this date`) ;
+				if (error instanceof SyntaxError) {
+					console.log(`No ${this._urlTemplate} for this date`) ;
 					return this._errorJson ;
 				} else { throw error ; } 
 			})

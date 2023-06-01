@@ -56,7 +56,7 @@ L.Control.Datepicker=L.Control.extend({
 
 		function dateChange(newDate) {
 			//determine if the month or year has also changed, and fire events for each case
-			console.log(`tracker date change ${newDate}`)  ;
+			console.log(`date change ${newDate}`)  ;
 			if (newDate!=map.date) {map.fire('dayChanged', {date:newDate}) ; }
 			if (newDate.getMonth()!=map.date.getMonth() || newDate.getFullYear()!=map.date.getFullYear()) { map.fire('monthChanged', {date:newDate}) ;}
 			if (newDate.getFullYear()!=map.date.getFullYear()) { map.fire('yearChanged', {date:newDate}) ; }
