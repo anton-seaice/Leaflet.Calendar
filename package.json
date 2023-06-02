@@ -1,6 +1,6 @@
 {
   "name": "leaflet-datepicker",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Adds a calendar to a leaflet map",
   "type": "module",
   "main": "dist/leaflet-datepicker.umd.cjs",
@@ -10,7 +10,7 @@
     "./Limageoverlay": "./src/timeLocal/L.ImageOverlay.TimeLocal.js",
     "./Ltilelayer": "./src/timeLocal/L.TileLayer.Time.js",
     "./timeLocal": "./src/timeLocal/timeLocal.js",
-    "./style":"./dist/style.css"
+    "./style": "./dist/style.css"
   },
   "scripts": {
     "test": "eslint ./src ./cypress && cypress run --component --browser chrome && cypress run --component --browser firefox",
