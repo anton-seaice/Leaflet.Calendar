@@ -3,14 +3,14 @@
   "version": "0.0.12",
   "description": "Adds a calendar to a leaflet map",
   "type": "module",
-  "main": "src/leaflet-datepicker.js",
-  "includes": "dist",
+  "main": "dist/leaflet-datepicker.umd.cjs",
+  "includes": "src",
   "exports": {
-    "./Ldatepicker": "./src/L.Control.Datepicker.js",
     "./Lgeojson": "./src/timeLocal/L.GeoJSON.TimeLocal.js",
     "./Limageoverlay": "./src/timeLocal/L.ImageOverlay.TimeLocal.js",
     "./Ltilelayer": "./src/timeLocal/L.TileLayer.Time.js",
-    "./timeLocal": "./src/timeLocal/timeLocal.js"
+    "./timeLocal": "./src/timeLocal/timeLocal.js",
+    "./style":"./dist/style.css"
   },
   "scripts": {
     "test": "eslint ./src ./cypress && cypress run --component --browser chrome && cypress run --component --browser firefox",
