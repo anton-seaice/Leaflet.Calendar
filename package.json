@@ -1,10 +1,10 @@
 {
   "name": "leaflet-datepicker",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Adds a calendar to a leaflet map",
   "type": "module",
   "exports": {
-    ".":"./dist/leaflet-datepicker.umd.cjs",
+    ".": "./dist/leaflet-datepicker.umd.cjs",
     "./Lgeojson": "./src/timeLocal/L.GeoJSON.TimeLocal.js",
     "./Limageoverlay": "./src/timeLocal/L.ImageOverlay.TimeLocal.js",
     "./Ltilelayer": "./src/timeLocal/L.TileLayer.Time.js",
