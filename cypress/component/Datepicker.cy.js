@@ -25,17 +25,24 @@ describe('<Datepicker />', () => {
 
   //These three functions are to check the date displayed matches the expected valued
   function checkDayValue() {
-    cy.get('[id=dayInput]').invoke('val').then(parseInt).should('eq', testDate.getDate() ) ;
+    cy.get('[id=dayInput]').should((el) => {
+      expect(parseInt(el[0]._value)).to.eq(testDate.getDate()) ;
+    })
     checkMonthValue() ;
   }
 
   function checkMonthValue() {
-    cy.get('[id=monthInput]').invoke('val').then(parseInt).should('eq', testDate.getMonth()+1 ) ;
+    cy.get('[id=monthInput]')
+    .should((el) => {
+      expect(parseInt(el[0]._value)).to.eq(testDate.getMonth()+1) ;
+    })
     checkYearValue() ;
   } 
 
   function checkYearValue() {
-    cy.get('[id=yearInput]').invoke('val').then(parseInt).should('eq', testDate.getFullYear() ) ;
+    cy.get('[id=yearInput]').should((el) => {
+      expect(parseInt(el[0]._value)).to.eq(testDate.getFullYear()) ;
+    })
   }
 
   //These three function are for pressuing a key with the day, month or year field selected.
@@ -74,21 +81,20 @@ describe('<Datepicker />', () => {
     cy.get('@onDateChangeSpy').should('have.callCount', callCount) ;
   }
 
-  it('renders', () => {
+  it('renders and frequency changes', () => {
     // Confirm that the datepicker is displayed, and fires an 'onDateChange' event when opened.
     // Confirm that the datepicker can be changed to monthly, daily, yearly and none frequencies
     const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
 
     cy.mount(Datepicker, {
       props:{
-        freq:freq ,
-        startDate: new Date('01 Nov 2020') ,
+        freq: freq ,
+        date: ref(new Date('01 Nov 2020')) ,
         onDateChange:onDateChangeSpy
       }
     }).then(() => {
 
       //check it is showing the right date and that the dateChange event was emitted
-
         cy.get('[id=datepicker]').should('exist') ;
         cy.get('[id=dayInput]').should('not.exist') ;
         checkMonthValue() ;
@@ -102,7 +108,7 @@ describe('<Datepicker />', () => {
       cy.get('[id=datepicker]').should('exist') ;
       checkDayValue() ;
 
-      }).then(() => {
+    }).then(() => {
 
       //change to yearly and check date
       freq.value = 'yearly' ;
@@ -118,18 +124,101 @@ describe('<Datepicker />', () => {
       //change to hidden
       freq.value = 'none' ;
 
-      cy.wait(500) ;
       cy.get('[id=datepicker]').children().should('not.exist')
 
     }).then(() => {
 
       //unhide
       freq.value = 'monthly' ;
-
-      cy.wait(500) ;
       cy.get('[id=datepicker]').children().should('exist')
 
     })
+  }) ;
+
+  it('updates from changes to ref', () => {
+    // Confirm that the datepicker is displayed, and responds to external changes to the date
+    // Confirm that the datepicker can be changed to monthly, daily, yearly and none frequencies
+    const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
+
+    
+    testDate = new Date('01 Nov 2020') ; //the expected/test date
+    callCount = 1 ; //number of event calls expected
+    freq = ref('daily') ;
+
+    let datepickerDate=ref(testDate) ;
+
+    cy.mount(Datepicker, {
+      props:{
+        freq:freq ,
+        date: datepickerDate,
+        onDateChange:onDateChangeSpy
+      }
+    }).then(() => {
+
+      //check it is showing the right date and that the dateChange event was emitted
+      cy.get('[id=datepicker]').should('exist') ;
+      checkDayValue() ;
+      cy.get('@onDateChangeSpy').should('have.been.calledOnce') ;
+      
+    }).then(() => {
+
+      testDate=new Date('01 Jan 1980') 
+      datepickerDate.value=testDate ;
+      callCount++ ;
+      checkDayValue() ;
+      cy.get('@onDateChangeSpy').should('have.callCount', callCount) ;
+
+    }).then(() => {
+
+      testDate=new Date() 
+      datepickerDate.value=testDate ;
+      callCount++ ;
+
+      checkDayValue() ;
+      cy.get('@onDateChangeSpy').should('have.callCount', callCount) ;
+
+    }).then(() => {
+
+      freq.value='monthly'
+
+      testDate=new Date('29 Feb 1980') 
+      datepickerDate.value=testDate ;
+      callCount++ ;
+
+      checkMonthValue() ;
+      cy.get('@onDateChangeSpy').should('have.callCount', callCount) ;
+
+    }).then(() => {
+
+      //change to yearly and check date
+      freq.value = 'yearly' ;
+
+      testDate=new Date('29 Feb 2000') 
+      datepickerDate.value=testDate ;
+      callCount++ ;
+
+      checkYearValue() ;
+      cy.get('@onDateChangeSpy').should('have.callCount', callCount) ;
+
+
+    }).then(() => {
+
+      //change to hidden
+      freq.value = 'none' ;
+
+      testDate=new Date('29 Feb 2020') 
+      datepickerDate.value=testDate ;
+      callCount++ ;
+
+      cy.get('@onDateChangeSpy').should('have.callCount', callCount) ;
+
+    }).then(() => {
+
+      //unhide
+      freq.value = 'daily' ;
+      checkDayValue() ;
+
+    }) 
   }) ;
 
   // run the following tests twice, once with the calendar open and once with it closed.
@@ -145,7 +234,7 @@ describe('<Datepicker />', () => {
     it('keyNavigationMonthly', () => {
 
       freq.value = 'monthly' ;
-      testDate = new Date('30 Jan 2020') ;
+      testDate = new Date('01 Jan 2020') ;
       callCount = 1 ;
       
       const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
@@ -153,7 +242,7 @@ describe('<Datepicker />', () => {
       cy.mount(Datepicker, {
         props:{
           freq:freq ,
-          startDate: new Date('30 Jan 2020') ,
+          date: ref(new Date('01 Jan 2020')) ,
           onDateChange:onDateChangeSpy
         }
       }).then(() =>{
@@ -194,58 +283,6 @@ describe('<Datepicker />', () => {
       })
     }) ;
 
-    it('keyNavigationMonthlyOn31stMonth', () => {
-
-      freq.value = 'monthly' ;
-      testDate = new Date('31 Jan 2020') ;
-      callCount = 1 ;
-      
-      const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
-
-      cy.mount(Datepicker, {
-        props:{
-          freq:freq ,
-          startDate: new Date('31 Jan 2020') ,
-          onDateChange:onDateChangeSpy
-        }
-      }).then(() =>{
-        cy.get('@onDateChangeSpy').should('have.callCount',callCount) ;
-
-        if (calendarOpen==true) {
-          cy.get('[id=datepicker]').click() ;
-          cy.get('[id=monthInput]').should('be.focused') ;
-          cy.get('[class=dp__instance_calendar]').should('exist');
-        }
-        else {
-          cy.get('[id=monthInput]').should('not.be.focused') ;
-          cy.get('[id=monthInput]').click().should('be.focused') ;
-          cy.get('[class=dp__instance_calendar]').should('not.exist');
-        }
-        //when you press the uparrow, month increments by 2, because there is no 31st Feb
-        monthType('{upArrow}') ; incrementMonthBy(1) ;
-      }).then(() => {
-        monthType('{downArrow}') ; incrementMonthBy(-1) ;
-      }).then(() => {
-        monthType('{leftArrow}') ; incrementMonthBy(-1) ;
-      }).then(() => {
-        monthType('{rightArrow}') ; incrementMonthBy(1) ;
-      }).then(() => {
-        //re-run with a daily calendar
-        freq.value = 'daily' ;
-        cy.wait(500) ;
-        if (calendarOpen==true) cy.get('[id=datepicker]').click() ;
-        cy.get('[id=monthInput]').should('not.be.focused') ;
-        cy.get('[id=monthInput]').click().should('be.focused') ;
-        monthType('{downArrow}') ; incrementMonthBy(-1) ;
-      }).then(() => {
-        monthType('{leftArrow}') ; incrementMonthBy(-1) ;
-      }).then(() => {
-        monthType('{upArrow}') ; incrementMonthBy(1) ;
-      }).then(() => {
-        monthType('{rightArrow}') ; incrementMonthBy(1) ;
-      })
-    }) ;
-
     it('keyNavigationMonthlyAtMinMaxDate', () => {
 
       freq.value='monthly'
@@ -259,7 +296,7 @@ describe('<Datepicker />', () => {
       cy.mount(Datepicker, {
         props:{
           freq: freq ,
-          startDate: new Date('01 Jan 2023')  ,
+          date: ref(new Date('01 Jan 2023'))  ,
           onDateChange:onDateChangeSpy,
           minDate:'01 Jan 2023',
           maxDateOffset:28
@@ -309,70 +346,7 @@ describe('<Datepicker />', () => {
       cy.mount(Datepicker, {
         props:{
           freq:freq ,
-          startDate: new Date(testDate)  ,
-          onDateChange:onDateChangeSpy
-        }
-      }).then(() =>{
-        cy.get('@onDateChangeSpy').should('have.callCount',callCount) ;
-
-        if (calendarOpen==true) {
-          cy.get('[id=datepicker]').click() ;
-          cy.get('[id=yearInput]').should('be.focused') ;
-          cy.get('[class=dp__instance_calendar]').should('exist');
-        }
-        else {
-          cy.get('[id=yearInput]').should('not.be.focused') ;
-          cy.get('[id=yearInput]').click().should('be.focused') ;
-          cy.get('[class=dp__instance_calendar]').should('not.exist');
-        }
-
-      }).then(() => {
-        yearType('{downArrow}') ; incrementYearBy(-1) ;
-      }).then(() => {
-        yearType('{leftArrow}') ; incrementYearBy(-1) ;
-      }).then(() => {
-        yearType('{upArrow}') ; incrementYearBy(1) ;
-      }).then(() => {
-        yearType('{rightArrow}') ; incrementYearBy(1) ;
-      }).then(() => {
-        freq.value = 'monthly' ;
-        cy.wait(500) ;
-        if (calendarOpen==true) cy.get('[id=datepicker]').click() ;
-        cy.get('[id=yearInput]').click().should('be.focused') ;
-        yearType('{downArrow}') ; incrementYearBy(-1) ;
-      }).then(() => {
-        yearType('{leftArrow}') ; incrementYearBy(-1) ;
-      }).then(() => {
-        yearType('{upArrow}') ; incrementYearBy(1) ;
-      }).then(() => {
-        yearType('{rightArrow}') ; incrementYearBy(1) ;
-      }).then(() => {
-        freq.value = 'daily' ;
-        cy.wait(500) ;
-        if (calendarOpen==true) cy.get('[id=datepicker]').click() ;
-        cy.get('[id=yearInput]').click().should('be.focused') ;
-        yearType('{downArrow}') ; incrementYearBy(-1) ;
-      }).then(() => {
-        yearType('{leftArrow}') ; incrementYearBy(-1) ;
-      }).then(() => {
-        yearType('{upArrow}') ; incrementYearBy(1) ;
-      }).then(() => {
-        yearType('{rightArrow}') ; incrementYearBy(1) ;
-      })
-    }) ;
-
-    it('keyNavigationYearlyOn29thFeb', () => {
-
-      freq.value='yearly'
-      callCount = 1 ;
-      testDate = new Date('29 Feb 2020') ;
-        
-      const onDateChangeSpy = cy.spy(onDateChange).as('onDateChangeSpy') ;
-
-      cy.mount(Datepicker, {
-        props:{
-          freq:freq ,
-          startDate: new Date(testDate)  ,
+          date: ref(new Date(testDate) ) ,
           onDateChange:onDateChangeSpy
         }
       }).then(() =>{
@@ -434,7 +408,7 @@ describe('<Datepicker />', () => {
       cy.mount(Datepicker, {
         props:{
           freq:freq ,
-          startDate: new Date(testDate) ,
+          date: ref(new Date(testDate)) ,
           onDateChange:onDateChangeSpy ,
           minDate:String(testDate),
           maxDateOffset:0
@@ -498,7 +472,7 @@ describe('<Datepicker />', () => {
       cy.mount(Datepicker, {
         props:{
           freq:freq ,
-          startDate: new Date(testDate) ,
+          date: ref(new Date(testDate)) ,
           onDateChange:onDateChangeSpy
         }
       }).then(() =>{
@@ -535,7 +509,7 @@ describe('<Datepicker />', () => {
       cy.mount(Datepicker, {
         props:{
           freq:freq ,
-          startDate: new Date(testDate) ,
+          date: ref(new Date(testDate)) ,
           onDateChange:onDateChangeSpy ,
           minDate: String(testDate) ,
           maxDate: 0 

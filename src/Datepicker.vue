@@ -5,7 +5,7 @@ Extend the vue datepicker by:
 	adding key navigation
 
 	properties:
-		startDate: date to initialise the datepicker on ,
+		date: ref with the start date or date set outside the datepicker ,
 		minDate: first date allowed to be chosen ,
 		maxDate: last date allowed to be chosen ,
 		freq: which calender to show, 'daily'|'monthly'|'yearly'|'none' (reactive)
@@ -20,7 +20,7 @@ Extend the vue datepicker by:
 
 <script setup>
 	import '@vuepic/vue-datepicker/dist/main.css' ;
-	import { ref } from 'vue' ;
+	import { ref , watch } from 'vue' ;
 	import Datepicker from '@vuepic/vue-datepicker';
 	import CalendarIcon from '../node_modules/@vuepic/vue-datepicker/src/VueDatePicker/components/Icons/CalendarIcon.ts'; 
 
@@ -32,7 +32,7 @@ Extend the vue datepicker by:
 	}) ;
 
 	let options = defineProps({
-		startDate: { type:Object , default:new Date() } , 
+		date: { type:Object , default:ref(new Date()) } , 
 		minDate: {
 			default:'01 Jan 1980',
 			validator(d) {
@@ -54,8 +54,20 @@ Extend the vue datepicker by:
 		}
 	} ) ;
 
+	watch(options.date, (newDate) => {
+		if (dateInRange(newDate)) {
+			console.log('new date')
+			date.value=newDate;
+			month.value.year=newDate.getFullYear() ;
+			month.value.month=newDate.getMonth() ;
+			emit('dateChange', date.value) 
+		} else {
+			console.debug(' new date out of range');
+			emit('dateChange', date.value) ;
+		}
+	})
 	//POSSIBLE TO-DO:
-	// Check that minDate<=startDate and maxDateOffset>=startDate
+	// Check that minDate<=startDate and maxDate>=startDate
 
 	const dayInput = ref(null) ;
 	const monthInput = ref(null) ;
@@ -87,7 +99,7 @@ Extend the vue datepicker by:
 
 	//We are using two vars to track the state of day, month, year, which are written to by the datepicker depending on which freq is set in the datepicker
 	
-	let date=ref(options.startDate) ;
+	let date=ref(options.date.value) ;
 	let month=ref({month:date.value.getMonth(), year:date.value.getFullYear()}) ;
 	
 	emit('dateChange', date.value ) ;

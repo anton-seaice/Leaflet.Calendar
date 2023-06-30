@@ -60,6 +60,7 @@ L.TileLayer.Time = L.TileLayer.extend({
 	updateTime: function(eventValue) {
 		
 		this.options.date= new Date(eventValue.date);
+		this._abortLoading() ;
 		this.redraw() ;
 
 	},

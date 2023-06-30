@@ -1,10 +1,10 @@
 {
   "name": "leaflet-datepicker",
-  "version": "0.0.14",
+  "version": "0.0.13",
   "description": "Adds a calendar to a leaflet map",
   "type": "module",
+  "main": "./dist/leaflet-datepicker.umd.cjs",
   "exports": {
-    ".": "./dist/leaflet-datepicker.umd.cjs",
     "./Lgeojson": "./src/timeLocal/L.GeoJSON.TimeLocal.js",
     "./Limageoverlay": "./src/timeLocal/L.ImageOverlay.TimeLocal.js",
     "./Ltilelayer": "./src/timeLocal/L.TileLayer.Time.js",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.2",
-    "cypress": "^11.2.0",
+    "cypress": "^12.15.0",
     "eslint": "^8.38.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",

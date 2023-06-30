@@ -72,7 +72,7 @@ L.Control.Datepicker=L.Control.extend({
 
 			//mount the vue app in it
 			this._app=createApp(Datepicker, {
-				startDate: map.date ,
+				date: ref(map.date) ,
 				freq: map._dateFreq , 
 				onDateChange:dateChange ,
 				minDate: this.options.minDate ,
@@ -82,6 +82,9 @@ L.Control.Datepicker=L.Control.extend({
 			// set up an event listener for when an layer is added
 			map.on('layeradd', this._layerChange, map) ;
 			map.on('layerremove', this._layerChange, map) ;
+			map.on('setDate', (newDate) => { 
+				this._app._props.date.value=newDate.date ;
+			})
 			
 		}
 			return this._container ;
